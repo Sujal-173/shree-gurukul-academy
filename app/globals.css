@@ -1389,6 +1389,29 @@ select:focus-visible {
   color: var(--gold-light);
 }
 
+.footer-credit {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding-top: 17px;
+  border-top: 1px solid rgba(255, 255, 255, .07);
+  color: #aab5c1;
+  font-size: 11px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.footer-credit a {
+  color: #d4dbe3;
+  font-weight: 600;
+  transition: color .18s ease;
+}
+
+.footer-credit a:hover {
+  color: var(--gold-light);
+}
 
 .floating-contact {
   position: fixed;
