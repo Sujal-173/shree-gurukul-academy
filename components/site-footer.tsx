@@ -106,8 +106,8 @@ export function SiteFooter({ content }: { content: SiteContent }) {
           <Link href="/contact">Contact</Link>
         </div>
       </div>
-      <div className="footer-credit">
-        <span>Design and Developed by</span>
+      <div className="wrap footer-credit">
+        <span>Designed and developed by</span>
         <a href="https://aventracreative.in/" target="_blank" rel="noreferrer">
           Sujal Patidar (Aventra Creative) Indore
         </a>
