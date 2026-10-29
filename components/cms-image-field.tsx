@@ -143,7 +143,7 @@ export function CmsImageField({
       )}
       <small className="form-note">
         Use a Cloudinary media item or a local asset path such as
-        /images/campus-illustration.png.
+        /images/campus-illustration.webp.
       </small>
     </div>
   );

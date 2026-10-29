@@ -12,7 +12,7 @@ export default async function VisionPage() {
   const page = pages.vision;
   return (
     <>
-      <PageHero title={page.title} subtitle={page.subtitle} />
+      <PageHero title={page.title} subtitle={page.subtitle} path="/vision" />
       <PageIntro page={page} />
       <section className="section-pad section-soft">
         <div className="wrap">
@@ -34,12 +34,9 @@ export default async function VisionPage() {
               </article>
             ))}
           </div>
-          <p className="notice-disclaimer">
-            {String(
-              page.visionDisclaimer ||
-                "These statements are proposed website copy, not attributed to school leadership. The school should replace them with its approved vision and mission statements.",
-            )}
-          </p>
+          {page.visionDisclaimer?.trim() ? (
+            <p className="notice-disclaimer">{page.visionDisclaimer}</p>
+          ) : null}
         </div>
       </section>
       <PageSectionList

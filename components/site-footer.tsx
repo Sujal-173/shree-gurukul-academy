@@ -22,7 +22,7 @@ export function SiteFooter({ content }: { content: SiteContent }) {
         <div className="footer-about">
           <Link href="/" className="footer-brand">
             <Image
-              src={brand.logoUrl || "/images/crest.svg"}
+              src={brand.logoUrl || "/images/crest.webp"}
               width={34}
               height={38}
               alt=""

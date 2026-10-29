@@ -19,7 +19,7 @@ export default async function AdminPagesIndex() {
 
   return <div className="admin-shell cms-pages-shell">
     <aside className="admin-sidebar">
-      <Link href="/admin" className="admin-brand"><Image src="/images/crest.svg" alt="" width={45} height={50}/><span><strong>Gurukul Academy</strong><small>WEBSITE CMS</small></span></Link>
+      <Link href="/admin" className="admin-brand"><Image src="/images/crest.webp" alt="" width={45} height={50}/><span><strong>Gurukul Academy</strong><small>WEBSITE CMS</small></span></Link>
       <nav className="admin-nav" aria-label="Administration">
         <Link href="/admin" className="admin-tab"><span><Icon name="layout-dashboard" size={18}/></span>Overview & tools</Link>
         <Link href="/admin/pages" className="admin-tab active"><span><Icon name="folder-open" size={18}/></span>Page editors</Link>

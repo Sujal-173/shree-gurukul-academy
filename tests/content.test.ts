@@ -34,16 +34,20 @@ describe("default academy content", () => {
     expect(defaultContent.footer.contactTitle).toBe("Contact Details");
   });
   it("provides editable section labels for interior page layouts", () => {
-    expect(defaultContent.pages.about.commitmentTitle).toBe("Get current information directly from the school.");
+    expect(defaultContent.pages.about.commitmentTitle).toBe("Every learner deserves guidance and encouragement.");
     expect(defaultContent.pages.academics.levelsTitle).toBe("Classes & learning stages");
-    expect(defaultContent.pages.admissions.stepsTitle).toBe("A simple enquiry-to-admission journey");
+    expect(defaultContent.pages.admissions.stepsTitle).toBe("Our Admission Process");
     expect(defaultContent.pages.contact.contactFormTitle).toBe("Send us a message");
-    expect(defaultContent.pages.calendar.calendarBlockTitle).toBe("School Academic Calendar & Planners");
+    expect(defaultContent.pages.calendar.title).toBe("School Calendar");
+    expect(defaultContent.pages.calendar.calendarEntries).toEqual([]);
+    expect("calendarPlanners" in defaultContent.pages.calendar).toBe(false);
   });
   it("keeps the public About copy factual and locally specific", () => {
-    expect(defaultContent.pages.about.body).toContain("New Lepa, Kasrawad, Khargone");
+    expect(defaultContent.pages.about.body).toContain("New Lepa, Kasrawad");
+    expect(defaultContent.pages.about.body).toContain("Khargone district");
     expect(defaultContent.pages.about.body).toContain("Classes 1–10");
-    expect(defaultContent.pages.about.body).toContain("contact the academy");
-    expect(defaultContent.seo.description).toContain("New Lepa, Kasrawad, Khargone");
+    expect(defaultContent.pages.about.body).toContain("contact the school office");
+    expect(defaultContent.seo.description).toContain("New Lepa");
+    expect(defaultContent.seo.description).toContain("Kasrawad, Khargone");
   });
 });

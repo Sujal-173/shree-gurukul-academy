@@ -27,10 +27,16 @@ export function isSameOrigin(request: NextRequest): boolean {
   if (!origin) return false;
   try {
     const originUrl = new URL(origin);
-    const expectedHost = request.headers.get("x-forwarded-host") || request.headers.get("host") || new URL(request.url).host;
-    const expectedProtocol = request.headers.get("x-forwarded-proto")?.split(",")[0]?.trim() || new URL(request.url).protocol.replace(":", "");
-    return originUrl.host.toLowerCase() === expectedHost.toLowerCase() && originUrl.protocol.replace(":", "") === expectedProtocol;
-  } catch { return false; }
+    // Prefer the configured canonical origin. Do not trust caller-controlled
+    // X-Forwarded-Host / X-Forwarded-Proto headers for CSRF validation.
+    const configuredOrigin = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+    const expectedOrigin = configuredOrigin
+      ? new URL(configuredOrigin).origin
+      : new URL(request.url).origin;
+    return originUrl.origin.toLowerCase() === expectedOrigin.toLowerCase();
+  } catch {
+    return false;
+  }
 }
 
 export function jsonError(message: string, status: number) {

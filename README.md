@@ -80,7 +80,7 @@ To connect a sheet:
 - `/` home
 - `/about`
 - `/academics`
-- `/admissions` — enquiry form at `#enquiry`
+- `/admission` — enquiry form at `#enquiry`
 - `/facilities`
 - `/notices`
 - `/gallery`

@@ -1,6 +1,6 @@
 /** Whitelisted page scopes accepted by the admin CMS save endpoint. */
 export const allowedContentScopes = new Set([
-  "home", "about", "academics", "admissions", "facilities", "school-life", "notices",
+  "home", "about", "academics", "admission", "facilities", "school-life", "notices",
   "gallery", "vision", "contact", "disclosure", "calendar", "privacy", "site-settings",
 ]);
 
@@ -23,7 +23,7 @@ export function mergeScopedContent(currentValue: unknown, incomingValue: unknown
   }
   const currentPages = current.pages && typeof current.pages === "object" && !Array.isArray(current.pages) ? current.pages as Record<string, unknown> : {};
   const incomingPages = incoming.pages && typeof incoming.pages === "object" && !Array.isArray(incoming.pages) ? incoming.pages as Record<string, unknown> : {};
-  const pageKey = scope === "school-life" ? "schoolLife" : scope;
+  const pageKey = scope === "school-life" ? "schoolLife" : scope === "admission" ? "admissions" : scope;
   if (!Object.prototype.hasOwnProperty.call(incomingPages, pageKey)) throw new Error(`Missing page content for scope: ${scope}`);
   return { ...current, pages: { ...currentPages, [pageKey]: incomingPages[pageKey] } };
 }

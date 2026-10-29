@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   if (!(await isAdminRequest(request))) return jsonError("Authentication required.", 401);
   try {
     const db = await getDb();
-    const media = await db.collection("media").find({}, { projection: { _id: 1, url: 1, publicId: 1, width: 1, height: 1, format: 1, bytes: 1, originalName: 1, createdAt: 1 } }).sort({ createdAt: -1 }).limit(100).toArray();
+    const media = await db.collection("media").find({ resourceType: { $ne: "raw" } }, { projection: { _id: 1, url: 1, publicId: 1, resourceType: 1, mimeType: 1, width: 1, height: 1, format: 1, bytes: 1, originalName: 1, createdAt: 1 } }).sort({ createdAt: -1 }).limit(100).toArray();
     return Response.json({ media: media.map((item) => ({ ...item, _id: item._id.toString(), createdAt: item.createdAt instanceof Date ? item.createdAt.toISOString() : item.createdAt })) }, { headers: { "Cache-Control": "no-store" } });
   } catch (error) {
     console.error("Media list failed:", error instanceof Error ? error.message : "Unknown error");
@@ -47,9 +47,10 @@ export async function DELETE(request: NextRequest) {
     if (!publicId) return jsonError("The media record has no Cloudinary public ID and cannot be safely removed.", 409);
     const referenced = containsReference(content?.content, imageUrl, publicId) || revisions.some((revision) => containsReference(revision.content, imageUrl, publicId));
     if (referenced) {
-      return jsonError("This image is referenced by saved content or a recent revision. Replace those references and wait until the revision ages out before deleting it.", 409);
+      return jsonError("This file is referenced by saved content or a recent revision. Replace those references and wait until the revision ages out before deleting it.", 409);
     }
-    const removed = await cloudinary.uploader.destroy(publicId, { resource_type: "image", invalidate: true });
+    const resourceType = media.resourceType === "raw" ? "raw" : "image";
+    const removed = await cloudinary.uploader.destroy(publicId, { resource_type: resourceType, invalidate: true });
     if (removed.result !== "ok" && removed.result !== "not found") return jsonError("Cloudinary did not confirm deletion. The media record was kept.", 502);
     await db.collection("media").deleteOne({ _id: new ObjectId(id) });
     return Response.json({ ok: true }, { headers: { "Cache-Control": "no-store" } });

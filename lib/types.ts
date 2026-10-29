@@ -28,6 +28,45 @@ export type NoticeItem = {
   title: string;
   date: string;
   description: string;
+  /** Optional image poster displayed with the notice. */
+  imageUrl?: string;
+  imageAlt?: string;
+  /** Optional uploaded circular or PDF link. */
+  attachmentUrl?: string;
+  attachmentName?: string;
+  attachmentType?: string;
+  active: boolean;
+};
+
+export type CalendarEntry = {
+  id?: string;
+  category: string;
+  title: string;
+  date: string;
+  endDate?: string;
+  time?: string;
+  location?: string;
+  className?: string;
+  subject?: string;
+  description?: string;
+  /** Supporting poster or circular (image or PDF). */
+  documentUrl?: string;
+  documentName?: string;
+  documentType?: string;
+  active: boolean;
+};
+
+export type CalendarResource = {
+  id: string;
+  kind: "school-calendar" | "exam-timetable";
+  title: string;
+  description: string;
+  className?: string;
+  academicYear?: string;
+  documentUrl: string;
+  documentName?: string;
+  documentType?: string;
+  updatedAt?: string;
   active: boolean;
 };
 
@@ -35,7 +74,7 @@ export type CalendarPlanner = {
   category: string;
   title: string;
   image: string;
-  alt: string;
+  alt?: string;
   active: boolean;
 };
 
@@ -52,13 +91,14 @@ export type PageCopy = {
   body: string;
   image?: string;
   imageAlt?: string;
+  privacyImplementationNote?: string;
+  visionDisclaimer?: string;
   sections?: ContentSection[];
   faqs?: FAQ[];
   steps?: ProcessStep[];
   levels?: AcademicLevel[];
   notices?: NoticeItem[];
   documents?: SchoolDocument[];
-  calendarPlanners?: CalendarPlanner[];
   [key: string]: unknown;
 };
 

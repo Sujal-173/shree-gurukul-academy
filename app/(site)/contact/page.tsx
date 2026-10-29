@@ -4,6 +4,7 @@ import { PageHero } from "@/components/page-hero";
 import { InquiryForm } from "@/components/inquiry-form";
 import { getSiteContent } from "@/lib/content";
 import { Icon } from "@/components/icon";
+import { PageFaqs } from "@/components/page-faqs";
 export async function generateMetadata() {
   return pageMetadata("contact");
 }
@@ -13,7 +14,7 @@ export default async function ContactPage() {
   const mapHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(brand.mapQuery || brand.address)}`;
   return (
     <>
-      <PageHero title={page.title} subtitle={page.subtitle} />
+      <PageHero title={page.title} subtitle={page.subtitle} path="/contact" />
       <section className="section-pad contact-page-section">
         <div className="wrap contact-layout">
           <aside className="contact-info-card">
@@ -126,6 +127,7 @@ export default async function ContactPage() {
           </div>
         </div>
       </section>
+      <PageFaqs faqs={page.faqs || []} title="Contact details at a glance" subtitle="Check these details before travelling or sending important correspondence."/>
     </>
   );
 }

@@ -107,7 +107,7 @@ export function GalleryExperience({ items }: { items: ContentSection[] }) {
           ))}
         </div>
       ) : (
-        <div className="gallery-empty">No photos in this category yet.</div>
+        <div className="gallery-empty">Approved academy photographs will appear here when they are available.</div>
       )}
 
       {selectedPhoto && portalRoot && createPortal(

@@ -12,14 +12,14 @@ afterEach(() => {
 });
 
 describe("canonical site URL", () => {
-  it("does not invent a public origin when none is configured", () => {
+  it("uses the canonical production origin when none is configured", () => {
     delete process.env.NEXT_PUBLIC_SITE_URL;
-    expect(getSiteUrl()).toBeUndefined();
+    expect(getSiteUrl().toString()).toBe("https://www.shrigurukulacademy.in/");
   });
 
   it("normalizes the configured URL to its origin", () => {
     process.env.NEXT_PUBLIC_SITE_URL = "https://school.example/path?preview=1";
-    expect(getSiteUrl()?.toString()).toBe("https://school.example/");
+    expect(getSiteUrl().toString()).toBe("https://school.example/");
   });
 
   it("rejects unsupported protocols", () => {

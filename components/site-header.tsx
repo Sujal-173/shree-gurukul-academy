@@ -13,7 +13,7 @@ export function SiteHeader({ name, subtitle, logoUrl, navigation, enquiryLabel =
     <header className="site-header">
       <div className="header-inner wrap">
         <Link href="/" className="brand-lockup" aria-label={`${name} home`} onClick={() => setOpen(false)}>
-          <Image src={logoUrl || "/images/crest.svg"} alt={`${name} emblem`} width={52} height={58} className="brand-crest" priority />
+          <Image src={logoUrl || "/images/crest.webp"} alt={`${name} emblem`} width={52} height={58} className="brand-crest" priority />
           <span className="brand-text"><strong>{name}</strong><small>{subtitle}</small></span>
         </Link>
         <button className="nav-toggle" type="button" aria-expanded={open} aria-controls="primary-nav" aria-label={open ? "Close navigation" : "Open navigation"} onClick={() => setOpen(!open)}>

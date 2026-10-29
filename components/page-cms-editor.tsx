@@ -14,6 +14,9 @@ import {
   type CmsArrayFieldDefinition,
 } from "@/components/cms-array-editor";
 import { CmsPageSwitcher } from "@/components/cms-page-switcher";
+import { CalendarContentManager } from "@/components/calendar-content-manager";
+import { CalendarResourceManager } from "@/components/calendar-resource-manager";
+import { isRealCalendarDate } from "@/lib/calendar";
 
 type MediaItem = {
   _id?: string;
@@ -24,6 +27,8 @@ type MediaItem = {
   format?: string;
   bytes?: number;
   originalName?: string;
+  mimeType?: string;
+  resourceType?: string;
   createdAt?: string;
 };
 type Notice = { kind: "success" | "error" | "info"; text: string };
@@ -62,7 +67,7 @@ const fieldPresets: Record<string, ArrayConfig> = {
       title: "A strong foundation",
       highlight: "for a brighter future.",
       subtitle: "Add a verified message for families.",
-      image: "/images/campus-illustration.png",
+      image: "/images/campus-illustration.webp",
       alt: "Illustrative academy campus image",
       primaryLabel: "Enquire for Admission",
       primaryHref: "/admission#enquiry",
@@ -191,6 +196,9 @@ const fieldPresets: Record<string, ArrayConfig> = {
       { key: "title", label: "Notice title" },
       { key: "date", label: "Date (optional, e.g. 15 Jul or 2026-07-15)" },
       { key: "description", label: "Description", multiline: true },
+      { key: "imageUrl", label: "Notice image / poster", kind: "image" },
+      { key: "imageAlt", label: "Image description (alt text)" },
+      { key: "attachmentUrl", label: "Circular / PDF attachment", kind: "attachment" },
       { key: "active", label: "Published", kind: "toggle" },
     ],
     itemLabel: "title",
@@ -199,32 +207,15 @@ const fieldPresets: Record<string, ArrayConfig> = {
       category: "General",
       title: "New notice",
       date: "",
-      description: "Add verified notice details.",
+      description: "",
+      imageUrl: "",
+      imageAlt: "",
+      attachmentUrl: "",
+      attachmentName: "",
+      attachmentType: "",
       active: false,
     },
     addLabel: "Add homepage announcement",
-  },
-  calendarPlanners: {
-    key: "calendarPlanners",
-    title: "Official planners",
-    description:
-      "Upload approved school planner images and choose the tab label shown to families.",
-    fields: [
-      { key: "category", label: "Planner tab label" },
-      { key: "title", label: "Planner title" },
-      { key: "image", label: "Planner image", kind: "image" },
-      { key: "alt", label: "Image alt text", multiline: true },
-      { key: "active", label: "Published", kind: "toggle" },
-    ],
-    itemLabel: "category",
-    template: {
-      category: "Calendar grid",
-      title: "Academic calendar",
-      image: "",
-      alt: "Official school academic calendar",
-      active: false,
-    },
-    addLabel: "Add planner",
   },
   sections: {
     key: "sections",
@@ -655,10 +646,46 @@ export function PageCmsEditor({
     }
   }
 
+  async function uploadAttachment(file: File, path: string[]) {
+    const form = new FormData();
+    form.append("file", file);
+    form.append("purpose", "attachment");
+    try {
+      const response = await fetch("/api/admin/upload", { method: "POST", body: form });
+      const data = (await response.json()) as { media?: MediaItem & { mimeType?: string }; error?: string };
+      if (!response.ok || !data.media) throw new Error(data.error || "Attachment upload failed.");
+      update(path, data.media.url);
+      const base = path.slice(0, -1);
+      const isDocumentField = path[path.length - 1] === "documentUrl";
+      update([...base, isDocumentField ? "documentName" : "attachmentName"], data.media.originalName || file.name);
+      update([...base, isDocumentField ? "documentType" : "attachmentType"], data.media.mimeType || file.type);
+      setNotice({ kind: "success", text: "File uploaded and linked. Save this page to publish the attachment." });
+    } catch (error) {
+      setNotice({ kind: "error", text: error instanceof Error ? error.message : "Attachment upload failed." });
+    }
+  }
+
   async function save() {
     setSaving(true);
     setNotice(null);
     try {
+      if (page.slug === "calendar") {
+        const records = (content.pages.calendar.calendarEntries || []) as Array<{
+          active?: boolean; title?: string; date?: string; endDate?: string; description?: string;
+        }>;
+        const invalidPublished = records.find((record) => record.active && (
+          !record.title?.trim() ||
+          !isRealCalendarDate(record.date) ||
+          !record.description?.trim() ||
+          Boolean(record.endDate && record.date && record.endDate < record.date)
+        ));
+        if (invalidPublished) {
+          throw new Error(`Cannot publish “${invalidPublished.title || "Untitled record"}”. Published calendar records need a title, valid start date, details, and an end date no earlier than the start date.`);
+        }
+        const resources = (content.pages.calendar.calendarResources || []) as Array<{ active?: boolean; title?: string; description?: string; documentUrl?: string; kind?: string; className?: string }>;
+        const invalidResource = resources.find((resource) => resource.active && (!resource.title?.trim() || !resource.description?.trim() || !resource.documentUrl?.trim() || !["school-calendar", "exam-timetable"].includes(resource.kind || "") || (resource.kind === "exam-timetable" && !resource.className?.trim())));
+        if (invalidResource) throw new Error(`Cannot publish “${invalidResource.title || "Untitled document"}”. Published resources need a title, details, an attachment, and a class/grade for exam timetables.`);
+      }
       const response = await fetch("/api/admin/content", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -808,6 +835,7 @@ export function PageCmsEditor({
         onRemove={remove}
         onMove={move}
         onUpload={uploadImage}
+        onUploadAttachment={uploadAttachment}
         minItems={config.minItems}
         addLabel={config.addLabel}
       />
@@ -958,7 +986,12 @@ export function PageCmsEditor({
             {scalarFields(home, ["home"], scalarOmit)}
           </div>
         </section>
-        {arrays.map((key) => renderArray(key, home, ["home"]))}
+        {arrays.map((key, index) => (
+          <details className="cms-array-details" key={key} open={index === 0}>
+            <summary><span>{labelFor(key)}</span><Icon name="chevron-down" size={16} /></summary>
+            {renderArray(key, home, ["home"])}
+          </details>
+        ))}
       </div>
     );
   } else {
@@ -972,11 +1005,10 @@ export function PageCmsEditor({
       "documents",
       "events",
       "galleryItems",
-      "calendarPlanners",
     ];
     const objectArrays = Object.keys(pageData).filter(
       (key) =>
-        !(page.slug === "calendar" && key === "sections") &&
+        !(page.slug === "calendar" && ["sections", "calendarPlanners", "calendarEntries", "calendarResources"].includes(key)) &&
         Array.isArray(pageData[key]) &&
         (knownPageArrays.includes(key) ||
           (pageData[key] as unknown[]).some(
@@ -1000,6 +1032,7 @@ export function PageCmsEditor({
           ) &&
           !primaryKeys.includes(key) &&
           !objectArrays.includes(key) &&
+          !(page.slug === "calendar" && ["calendarBlockEyebrow", "calendarBlockTitle", "calendarBlockDescription", "calendarSession", "calendarPostedBy", "calendarEmptyText", "calendarPlanners", "calendarResources"].includes(key)) &&
           (typeof value === "string" ||
             typeof value === "number" ||
             typeof value === "boolean" ||
@@ -1035,9 +1068,22 @@ export function PageCmsEditor({
             </div>
           </section>
         )}
-        {objectArrays.map((key) =>
-          renderArray(key, pageData, ["pages", page.key]),
-        )}
+        {page.slug === "calendar" && <>
+          <CalendarContentManager
+            entries={Array.isArray(pageData.calendarEntries) ? pageData.calendarEntries as import("@/lib/types").CalendarEntry[] : []}
+            onChange={(entries) => update(["pages", page.key, "calendarEntries"], entries)}
+          />
+          <CalendarResourceManager
+            resources={Array.isArray(pageData.calendarResources) ? pageData.calendarResources as import("@/lib/types").CalendarResource[] : []}
+            onChange={(resources) => update(["pages", page.key, "calendarResources"], resources)}
+          />
+        </>}
+        {objectArrays.map((key, index) => (
+          <details className="cms-array-details" key={key} open={index === 0}>
+            <summary><span>{labelFor(key)}</span><Icon name="chevron-down" size={16} /></summary>
+            {renderArray(key, pageData, ["pages", page.key])}
+          </details>
+        ))}
       </div>
     );
   }
@@ -1073,7 +1119,7 @@ export function PageCmsEditor({
     <div className="admin-shell cms-pages-shell">
       <aside className="admin-sidebar">
         <Link href="/admin" className="admin-brand">
-          <Image src="/images/crest.svg" alt="" width={45} height={50} />
+          <Image src="/images/crest.webp" alt="" width={45} height={50} />
           <span>
             <strong>Gurukul Academy</strong>
             <small>WEBSITE CMS</small>

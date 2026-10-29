@@ -1,0 +1,1388 @@
+[
+  {
+    "path": [
+      "footer",
+      "description"
+    ],
+    "previous": "Nurturing learning, curiosity, confidence and respect. Let’s work together to support each child’s next step."
+  },
+  {
+    "path": [
+      "brand",
+      "tagline"
+    ],
+    "previous": "Learning with values. Growing with confidence."
+  },
+  {
+    "path": [
+      "home",
+      "hero"
+    ],
+    "previous": [
+      {
+        "eyebrow": "SHRI GURUKUL ACADEMY · NEW LEPA",
+        "title": "A strong foundation",
+        "highlight": "for a brighter future.",
+        "subtitle": "An encouraging place for students to learn, ask questions, build good habits and discover what they can become.",
+        "image": "/images/campus-illustration.webp",
+        "alt": "Illustrative school campus with green trees and a welcoming entrance; not a verified academy photograph.",
+        "primaryLabel": "Enquire for Admission",
+        "primaryHref": "/admission#enquiry",
+        "secondaryLabel": "Discover Our Academy",
+        "secondaryHref": "/about"
+      },
+      {
+        "eyebrow": "CLASSES 1–10",
+        "title": "Curiosity leads",
+        "highlight": "to discovery.",
+        "subtitle": "Build strong learning habits through thoughtful teaching, practice, questions and shared experiences.",
+        "image": "/images/learning-together.webp",
+        "alt": "Illustrative scene of school students learning together around a table.",
+        "primaryLabel": "Explore Academics",
+        "primaryHref": "/academics",
+        "secondaryLabel": "Get in Touch",
+        "secondaryHref": "/contact"
+      },
+      {
+        "eyebrow": "LEARNING BY EXPLORING",
+        "title": "Understand more.",
+        "highlight": "Imagine further.",
+        "subtitle": "Encourage students to observe, experiment, express ideas and approach challenges with an open mind.",
+        "image": "/images/creative-arts.webp",
+        "alt": "Illustrative image of students making a colorful classroom arts-and-crafts project.",
+        "primaryLabel": "Our Approach",
+        "primaryHref": "/vision",
+        "secondaryLabel": "School Life",
+        "secondaryHref": "/school-life"
+      },
+      {
+        "eyebrow": "CONFIDENCE · TEAMWORK · RESPECT",
+        "title": "Every child has",
+        "highlight": "room to grow.",
+        "subtitle": "Learning is also about cooperation, resilience, creativity and the confidence to try again.",
+        "image": "/images/school-assembly.webp",
+        "alt": "Illustrative outdoor school assembly with students gathered together.",
+        "primaryLabel": "Explore School Life",
+        "primaryHref": "/school-life",
+        "secondaryLabel": "View Gallery",
+        "secondaryHref": "/gallery"
+      }
+    ]
+  },
+  {
+    "path": [
+      "home",
+      "heroCaptionTitle"
+    ],
+    "previous": "Learning. Values. Growth."
+  },
+  {
+    "path": [
+      "home",
+      "heroCaptionSubtitle"
+    ],
+    "previous": "Every step matters."
+  },
+  {
+    "path": [
+      "home",
+      "heroLocationLabel"
+    ],
+    "previous": "NEW LEPA · MADHYA PRADESH"
+  },
+  {
+    "path": [
+      "home",
+      "introEyebrow"
+    ],
+    "previous": "ABOUT OUR ACADEMY"
+  },
+  {
+    "path": [
+      "home",
+      "introTitle"
+    ],
+    "previous": "Learning that goes beyond the classroom."
+  },
+  {
+    "path": [
+      "home",
+      "introBody"
+    ],
+    "previous": "Shri Gurukul Academy New Lepa supports learners in Classes 1–10 with an approach centred on strong academic foundations, curiosity, responsible habits and respect for others. The academy encourages students and families to work together so every learner can keep progressing with confidence."
+  },
+  {
+    "path": [
+      "home",
+      "introPoints"
+    ],
+    "previous": "Learning with purpose\nValues and respect\nClasses 1–10\nFamily partnership"
+  },
+  {
+    "path": [
+      "home",
+      "introButtonLabel"
+    ],
+    "previous": "More About Our Academy"
+  },
+  {
+    "path": [
+      "home",
+      "highlightsEyebrow"
+    ],
+    "previous": "OUR APPROACH"
+  },
+  {
+    "path": [
+      "home",
+      "highlightsTitle"
+    ],
+    "previous": "A foundation for lifelong learning"
+  },
+  {
+    "path": [
+      "home",
+      "highlightsSubtitle"
+    ],
+    "previous": "Strong learning foundations grow through knowledge, curiosity, purposeful practice and the confidence to keep improving."
+  },
+  {
+    "path": [
+      "home",
+      "highlights"
+    ],
+    "previous": [
+      {
+        "eyebrow": "01 · LEARNING",
+        "title": "Academic growth",
+        "description": "Build understanding step by step through practice, questions, and clear learning goals.",
+        "image": "/images/classroom-teaching.webp",
+        "alt": "Illustrative teacher guiding a classroom lesson",
+        "tag": "LEARN"
+      },
+      {
+        "eyebrow": "02 · EXPLORATION",
+        "title": "Learning by doing",
+        "description": "Make room for observation, experimentation, creativity, and explaining ideas in your own words.",
+        "image": "/images/science-activity.webp",
+        "alt": "Illustrative classroom science activity",
+        "tag": "EXPLORE"
+      },
+      {
+        "eyebrow": "03 · WELL-BEING",
+        "title": "Teamwork & confidence",
+        "description": "Encourage fair play, cooperation, effort, and respect for each other.",
+        "image": "/images/sports-activity.webp",
+        "alt": "Illustrative students playing football",
+        "tag": "GROW"
+      }
+    ]
+  },
+  {
+    "path": [
+      "home",
+      "valuesEyebrow"
+    ],
+    "previous": "VALUES THAT GUIDE US"
+  },
+  {
+    "path": [
+      "home",
+      "valuesTitle"
+    ],
+    "previous": "Good values. Strong foundations."
+  },
+  {
+    "path": [
+      "home",
+      "valuesSubtitle"
+    ],
+    "previous": "Small daily choices help build the habits that last."
+  },
+  {
+    "path": [
+      "home",
+      "values"
+    ],
+    "previous": [
+      {
+        "title": "Respect",
+        "description": "Listen with care and treat classmates, teachers and community members thoughtfully."
+      },
+      {
+        "title": "Curiosity",
+        "description": "Ask questions, look for evidence and keep an open mind when learning something new."
+      },
+      {
+        "title": "Consistency",
+        "description": "Practice regularly, take responsibility and learn from mistakes."
+      },
+      {
+        "title": "Cooperation",
+        "description": "Share ideas, support others and understand the value of working together."
+      }
+    ]
+  },
+  {
+    "path": [
+      "home",
+      "stats"
+    ],
+    "previous": [
+      {
+        "value": "1–10",
+        "label": "Classes supported"
+      },
+      {
+        "value": "Every day",
+        "label": "A chance to learn"
+      },
+      {
+        "value": "One team",
+        "label": "School and family"
+      },
+      {
+        "value": "Every child",
+        "label": "Matters here"
+      }
+    ]
+  },
+  {
+    "path": [
+      "home",
+      "leadersEyebrow"
+    ],
+    "previous": "OUR APPROACH"
+  },
+  {
+    "path": [
+      "home",
+      "leadersTitle"
+    ],
+    "previous": "Growing through learning and partnership"
+  },
+  {
+    "path": [
+      "home",
+      "leadersSubtitle"
+    ],
+    "previous": "Students benefit from clear guidance, steady practice and communication between home and school. These are the principles behind the academy’s approach to learning."
+  },
+  {
+    "path": [
+      "home",
+      "leaders"
+    ],
+    "previous": [
+      {
+        "role": "Learning with purpose",
+        "name": "",
+        "designation": "Our approach",
+        "message": "A meaningful learning experience builds understanding, encourages curiosity and helps students practise responsibility, confidence and respect. Small, consistent steps give learners a foundation for continued growth.",
+        "portrait": "",
+        "alt": ""
+      },
+      {
+        "role": "School–family partnership",
+        "name": "",
+        "designation": "Working together",
+        "message": "Clear communication helps families stay connected with school life. Questions, feedback and regular conversations can help students build stronger learning habits and move forward with confidence.",
+        "portrait": "",
+        "alt": ""
+      }
+    ]
+  },
+  {
+    "path": [
+      "home",
+      "noticesEyebrow"
+    ],
+    "previous": "NOTICE & UPDATES"
+  },
+  {
+    "path": [
+      "home",
+      "noticesTitle"
+    ],
+    "previous": "Important Announcements"
+  },
+  {
+    "path": [
+      "home",
+      "noticesSubtitle"
+    ],
+    "previous": "School announcements will be published here by the administration."
+  },
+  {
+    "path": [
+      "home",
+      "notices"
+    ],
+    "previous": [
+      {
+        "id": "welcome-enquiries",
+        "category": "Admissions",
+        "title": "Admission enquiries",
+        "date": "",
+        "description": "Contact the school office to ask about current class availability, application steps and required documents.",
+        "active": false
+      },
+      {
+        "id": "school-updates",
+        "category": "School Update",
+        "title": "School announcements",
+        "date": "",
+        "description": "Published notices and important dates will be displayed here when approved by the school administration.",
+        "active": false
+      }
+    ]
+  },
+  {
+    "path": [
+      "home",
+      "ctaEyebrow"
+    ],
+    "previous": "YOUR CHILD’S NEXT CHAPTER"
+  },
+  {
+    "path": [
+      "home",
+      "ctaTitle"
+    ],
+    "previous": "Let’s discuss your child’s next step."
+  },
+  {
+    "path": [
+      "home",
+      "ctaBody"
+    ],
+    "previous": "Contact Shri Gurukul Academy New Lepa for current admission information and school details."
+  },
+  {
+    "path": [
+      "home",
+      "ctaLabel"
+    ],
+    "previous": "Talk to the School"
+  },
+  {
+    "path": [
+      "home",
+      "ctaSecondaryLabel"
+    ],
+    "previous": "Contact School Office"
+  },
+  {
+    "path": [
+      "pages",
+      "about",
+      "title"
+    ],
+    "previous": "About Our Academy"
+  },
+  {
+    "path": [
+      "pages",
+      "about",
+      "subtitle"
+    ],
+    "previous": "Discover Shri Gurukul Academy in New Lepa, Kasrawad, and find useful information for students and families."
+  },
+  {
+    "path": [
+      "pages",
+      "about",
+      "heading"
+    ],
+    "previous": "A place to learn, grow and build character"
+  },
+  {
+    "path": [
+      "pages",
+      "about",
+      "body"
+    ],
+    "previous": "Located in New Lepa, Kasrawad, in Khargone district of Madhya Pradesh, Shri Gurukul Academy provides education for Classes 1–10. This website brings together information about the academy, learning stages, school updates and admission enquiries. Families can contact the school office for current academic details, class availability, facilities and policies."
+  },
+  {
+    "path": [
+      "pages",
+      "about",
+      "sectionTitle"
+    ],
+    "previous": "A strong foundation for every learner"
+  },
+  {
+    "path": [
+      "pages",
+      "about",
+      "sectionSubtitle"
+    ],
+    "previous": "Learning, good habits and a close partnership between school and family help children move forward."
+  },
+  {
+    "path": [
+      "pages",
+      "about",
+      "commitmentTitle"
+    ],
+    "previous": "Every learner deserves guidance and encouragement."
+  },
+  {
+    "path": [
+      "pages",
+      "about",
+      "commitmentBody"
+    ],
+    "previous": "We aim to make school information clear and accessible, and to support open communication between families and the academy. The school office can answer questions about current programmes, expectations and admission steps."
+  },
+  {
+    "path": [
+      "pages",
+      "about",
+      "commitmentPoints"
+    ],
+    "previous": "Learning with purpose\nRespect and responsibility\nSchool–family partnership"
+  },
+  {
+    "path": [
+      "pages",
+      "about",
+      "imageAlt"
+    ],
+    "previous": "Illustrative school campus; not a verified photograph of the academy."
+  },
+  {
+    "path": [
+      "pages",
+      "about",
+      "sections"
+    ],
+    "previous": [
+      {
+        "title": "School in New Lepa",
+        "description": "Shri Gurukul Academy is located in New Lepa, Kasrawad, in Khargone district of Madhya Pradesh. Families planning a visit can use the contact details on this website to confirm directions and office availability."
+      },
+      {
+        "title": "Classes and learning",
+        "description": "The academy provides education for Classes 1–10. Contact the school office for the current syllabus, subject list, medium of instruction, assessment pattern and class availability."
+      },
+      {
+        "title": "Contact the academy",
+        "description": "Parents and guardians can contact the school office with questions about admissions, fees, timings, facilities and official school documents."
+      }
+    ]
+  },
+  {
+    "path": [
+      "pages",
+      "academics",
+      "subtitle"
+    ],
+    "previous": "Explore learning stages, academic updates and the information families need to support steady progress."
+  },
+  {
+    "path": [
+      "pages",
+      "academics",
+      "calendarTitle"
+    ],
+    "previous": "Academic dates and learning expectations"
+  },
+  {
+    "path": [
+      "pages",
+      "academics",
+      "calendarDescription"
+    ],
+    "previous": "Check the school calendar for published dates. Contact the academy for the current curriculum, assessment schedule, subject information and book list."
+  },
+  {
+    "path": [
+      "pages",
+      "academics",
+      "levelsTitle"
+    ],
+    "previous": "Classes & learning stages"
+  },
+  {
+    "path": [
+      "pages",
+      "academics",
+      "levelsSubtitle"
+    ],
+    "previous": "Each stage builds on prior learning, with priorities that typically change as students grow. The school can confirm its current curriculum and subjects."
+  },
+  {
+    "path": [
+      "pages",
+      "academics",
+      "learningTitle"
+    ],
+    "previous": "Our learning approach"
+  },
+  {
+    "path": [
+      "pages",
+      "academics",
+      "learningSubtitle"
+    ],
+    "previous": "An effective learning routine is built through regular effort and feedback."
+  },
+  {
+    "path": [
+      "pages",
+      "academics",
+      "heading"
+    ],
+    "previous": "Building understanding, one step at a time"
+  },
+  {
+    "path": [
+      "pages",
+      "academics",
+      "body"
+    ],
+    "previous": "Shri Gurukul Academy provides education for Classes 1–10. The learning stages below outline broad priorities at each level. Contact the academy for the current syllabus, subject list, medium of instruction, assessment pattern, books and timetable."
+  },
+  {
+    "path": [
+      "pages",
+      "academics",
+      "imageAlt"
+    ],
+    "previous": "Illustrative students reading together in a library"
+  },
+  {
+    "path": [
+      "pages",
+      "academics",
+      "levels"
+    ],
+    "previous": [
+      {
+        "range": "Classes 1–5",
+        "title": "Primary years",
+        "description": "Focus on reading, writing, numeracy, communication, curiosity and foundational study habits."
+      },
+      {
+        "range": "Classes 6–8",
+        "title": "Middle years",
+        "description": "Strengthen subject understanding, independent study, collaboration, research and problem-solving."
+      },
+      {
+        "range": "Classes 9–10",
+        "title": "Secondary years",
+        "description": "Develop deeper subject knowledge, consistent revision, exam readiness and responsible learning routines."
+      }
+    ]
+  },
+  {
+    "path": [
+      "pages",
+      "academics",
+      "sections"
+    ],
+    "previous": [
+      {
+        "title": "Clear learning goals",
+        "description": "Help students understand what they are learning, why it matters and how to practise it."
+      },
+      {
+        "title": "Regular practice",
+        "description": "Build confidence through review, feedback and steady preparation."
+      },
+      {
+        "title": "Family communication",
+        "description": "Parents can ask the school for updates on progress, assessments and academic expectations."
+      }
+    ]
+  },
+  {
+    "path": [
+      "pages",
+      "admissions",
+      "subtitle"
+    ],
+    "previous": "Begin with an enquiry and get guidance on class availability, application steps and the documents currently required."
+  },
+  {
+    "path": [
+      "pages",
+      "admissions",
+      "stepsTitle"
+    ],
+    "previous": "Our Admission Process"
+  },
+  {
+    "path": [
+      "pages",
+      "admissions",
+      "stepsSubtitle"
+    ],
+    "previous": "The school office can explain the current process, answer questions and help families understand the next step."
+  },
+  {
+    "path": [
+      "pages",
+      "admissions",
+      "eligibilityTitle"
+    ],
+    "previous": "Documents to Ask About"
+  },
+  {
+    "path": [
+      "pages",
+      "admissions",
+      "eligibilityBody"
+    ],
+    "previous": "These are common items schools may request. Please get the academy’s current official checklist before preparing or submitting documents."
+  },
+  {
+    "path": [
+      "pages",
+      "admissions",
+      "eligibilityPoints"
+    ],
+    "previous": "Student’s birth certificate\nTransfer certificate, if applicable\nPrevious class report card, if applicable\nStudent and parent/guardian identity details\nRecent student photographs, if requested"
+  },
+  {
+    "path": [
+      "pages",
+      "admissions",
+      "contactTitle"
+    ],
+    "previous": "Talk with the school team"
+  },
+  {
+    "path": [
+      "pages",
+      "admissions",
+      "contactBody"
+    ],
+    "previous": "Call the academy before making a journey if you need to confirm hours, dates, eligibility or required documents."
+  },
+  {
+    "path": [
+      "pages",
+      "admissions",
+      "faqTitle"
+    ],
+    "previous": "Admissions FAQs"
+  },
+  {
+    "path": [
+      "pages",
+      "admissions",
+      "faqSubtitle"
+    ],
+    "previous": "For details specific to your child, contact the school office."
+  },
+  {
+    "path": [
+      "pages",
+      "admissions",
+      "formTitle"
+    ],
+    "previous": "Tell us a little about your child"
+  },
+  {
+    "path": [
+      "pages",
+      "admissions",
+      "formBody"
+    ],
+    "previous": "Submit the form and the school team can follow up with you."
+  },
+  {
+    "path": [
+      "pages",
+      "admissions",
+      "heading"
+    ],
+    "previous": "Start a conversation with our school office"
+  },
+  {
+    "path": [
+      "pages",
+      "admissions",
+      "body"
+    ],
+    "previous": "Use the enquiry form to share the class of interest and a preferred contact method. The school team can explain current availability, application requirements, fees and important dates before you proceed."
+  },
+  {
+    "path": [
+      "pages",
+      "admissions",
+      "imageAlt"
+    ],
+    "previous": "Illustrative school campus image"
+  },
+  {
+    "path": [
+      "pages",
+      "admissions",
+      "steps"
+    ],
+    "previous": [
+      {
+        "number": "01",
+        "title": "Make an enquiry",
+        "description": "Share the student’s class of interest and ask about current availability."
+      },
+      {
+        "number": "02",
+        "title": "Confirm requirements",
+        "description": "Ask the school for the application form, current fees, age guidance and document list."
+      },
+      {
+        "number": "03",
+        "title": "Visit or speak with the school",
+        "description": "Arrange the next step with the school office and clarify any questions."
+      },
+      {
+        "number": "04",
+        "title": "Complete the process",
+        "description": "Submit the documents and information requested by the academy."
+      }
+    ]
+  },
+  {
+    "path": [
+      "pages",
+      "admissions",
+      "faqs"
+    ],
+    "previous": [
+      {
+        "question": "Which classes does the academy offer?",
+        "answer": "The school information supplied for this website confirms Classes 1–10. Please contact the school to confirm current seat availability by class."
+      },
+      {
+        "question": "What documents are required?",
+        "answer": "Document requirements can vary by student and class. Contact the school office for its current official list."
+      },
+      {
+        "question": "What are the fees and admission dates?",
+        "answer": "Fees, dates and availability are not published as verified information here. Please contact the school directly."
+      }
+    ]
+  },
+  {
+    "path": [
+      "pages",
+      "facilities",
+      "subtitle"
+    ],
+    "previous": "Explore the learning environment and the experiences that can help students develop confidence and good habits."
+  },
+  {
+    "path": [
+      "pages",
+      "facilities",
+      "sectionsTitle"
+    ],
+    "previous": "Experiences that help learning grow"
+  },
+  {
+    "path": [
+      "pages",
+      "facilities",
+      "sectionsSubtitle"
+    ],
+    "previous": "Discover the learning experiences highlighted on this page. Contact the school office to confirm which facilities and activities are currently available."
+  },
+  {
+    "path": [
+      "pages",
+      "facilities",
+      "imageDisclaimer"
+    ],
+    "previous": "Images on this page are illustrative. Contact the school office to confirm current campus facilities and activities."
+  },
+  {
+    "path": [
+      "pages",
+      "facilities",
+      "heading"
+    ],
+    "previous": "An environment for learning and growth"
+  },
+  {
+    "path": [
+      "pages",
+      "facilities",
+      "body"
+    ],
+    "previous": "A supportive learning environment encourages students to ask questions, practise new skills and learn alongside others. Please contact the school office to confirm which facilities and activities are currently available on campus."
+  },
+  {
+    "path": [
+      "pages",
+      "facilities",
+      "imageAlt"
+    ],
+    "previous": "Illustrative school campus"
+  },
+  {
+    "path": [
+      "pages",
+      "facilities",
+      "sections"
+    ],
+    "previous": [
+      {
+        "title": "Classroom learning",
+        "description": "A supportive classroom experience encourages students to listen, ask questions and practise new skills.",
+        "image": "/images/learning-together.webp",
+        "alt": "Illustrative classroom collaboration"
+      },
+      {
+        "title": "Practical exploration",
+        "description": "Hands-on learning, where offered, can help learners connect concepts with observation and discovery.",
+        "image": "/images/science-activity.webp",
+        "alt": "Illustrative science activity"
+      },
+      {
+        "title": "Movement and teamwork",
+        "description": "Play and physical activity can encourage cooperation, perseverance and healthy habits.",
+        "image": "/images/sports-activity.webp",
+        "alt": "Illustrative outdoor school sports"
+      }
+    ]
+  },
+  {
+    "path": [
+      "pages",
+      "notices",
+      "subtitle"
+    ],
+    "previous": "Read school notices, circulars and important dates published by the academy."
+  },
+  {
+    "path": [
+      "pages",
+      "notices",
+      "heading"
+    ],
+    "previous": "Important announcements"
+  },
+  {
+    "path": [
+      "pages",
+      "notices",
+      "body"
+    ],
+    "previous": "The notice board brings together announcements and circulars approved by the school administration. For an urgent or time-sensitive matter, contact the school office to confirm the latest information."
+  },
+  {
+    "path": [
+      "pages",
+      "notices",
+      "notices"
+    ],
+    "previous": [
+      {
+        "id": "admission",
+        "category": "Admissions",
+        "title": "Contact the school for current admission details",
+        "date": "",
+        "description": "Confirm class availability, fees, dates and required documents with the school office.",
+        "active": false
+      }
+    ]
+  },
+  {
+    "path": [
+      "pages",
+      "gallery",
+      "subtitle"
+    ],
+    "previous": "A visual window into learning, participation and school life."
+  },
+  {
+    "path": [
+      "pages",
+      "gallery",
+      "galleryEyebrow"
+    ],
+    "previous": "A VISUAL STORY"
+  },
+  {
+    "path": [
+      "pages",
+      "gallery",
+      "galleryDisclaimer"
+    ],
+    "previous": "The images shown are illustrative examples of learning and school-life scenes, not records of actual academy events. Official photographs will appear here when approved by the school."
+  },
+  {
+    "path": [
+      "pages",
+      "gallery",
+      "heading"
+    ],
+    "previous": "Moments from a learning journey"
+  },
+  {
+    "path": [
+      "pages",
+      "gallery",
+      "body"
+    ],
+    "previous": "Browse scenes of learning and school life. Select a category or open any image to view it larger."
+  },
+  {
+    "path": [
+      "pages",
+      "gallery",
+      "imageAlt"
+    ],
+    "previous": "Illustrative students learning together"
+  },
+  {
+    "path": [
+      "pages",
+      "gallery",
+      "sections"
+    ],
+    "previous": [
+      {
+        "title": "Reading together",
+        "description": "Illustrative scene for the school learning gallery.",
+        "image": "/images/library-reading.webp",
+        "alt": "Illustrative students reading in a library",
+        "tag": "Classrooms"
+      },
+      {
+        "title": "Creative projects",
+        "description": "Illustrative scene for student creativity.",
+        "image": "/images/creative-arts.webp",
+        "alt": "Illustrative school arts-and-crafts activity",
+        "tag": "Activities"
+      },
+      {
+        "title": "Morning assembly",
+        "description": "Illustrative scene for school community life.",
+        "image": "/images/school-assembly.webp",
+        "alt": "Illustrative school assembly",
+        "tag": "Events"
+      },
+      {
+        "title": "Teamwork and sport",
+        "description": "Illustrative scene for activities and sport.",
+        "image": "/images/sports-activity.webp",
+        "alt": "Illustrative students playing football",
+        "tag": "Sports"
+      }
+    ]
+  },
+  {
+    "path": [
+      "pages",
+      "vision",
+      "title"
+    ],
+    "previous": "Vision & Values"
+  },
+  {
+    "path": [
+      "pages",
+      "vision",
+      "subtitle"
+    ],
+    "previous": "The values that shape a thoughtful, respectful and purposeful learning environment."
+  },
+  {
+    "path": [
+      "pages",
+      "vision",
+      "valuesSectionTitle"
+    ],
+    "previous": "Values we want to practise"
+  },
+  {
+    "path": [
+      "pages",
+      "vision",
+      "valuesSectionSubtitle"
+    ],
+    "previous": "A set of principles that can guide daily choices and relationships."
+  },
+  {
+    "path": [
+      "pages",
+      "vision",
+      "heading"
+    ],
+    "previous": "Nurturing thought, character and confidence"
+  },
+  {
+    "path": [
+      "pages",
+      "vision",
+      "body"
+    ],
+    "previous": "Our educational approach values understanding, curiosity, responsibility and respect. These principles guide the way we speak about learning, encourage steady effort and support positive relationships across the school community."
+  },
+  {
+    "path": [
+      "pages",
+      "vision",
+      "sections"
+    ],
+    "previous": [
+      {
+        "title": "Our vision",
+        "description": "To help learners build knowledge, confidence and consideration for others, preparing them to approach future opportunities with curiosity and responsibility."
+      },
+      {
+        "title": "Our mission",
+        "description": "To support steady academic development through purposeful teaching, regular practice, positive guidance and partnership with families."
+      },
+      {
+        "title": "Integrity first",
+        "description": "Encourage honesty, accountability and respect in everyday choices."
+      },
+      {
+        "title": "Kindness and empathy",
+        "description": "Create space to listen, cooperate and care for the learning community."
+      },
+      {
+        "title": "Persistence",
+        "description": "Treat mistakes as opportunities to practise, reflect and improve."
+      }
+    ]
+  },
+  {
+    "path": [
+      "pages",
+      "contact",
+      "title"
+    ],
+    "previous": "Contact Us"
+  },
+  {
+    "path": [
+      "pages",
+      "contact",
+      "subtitle"
+    ],
+    "previous": "Contact the academy for admission questions, school information or general enquiries."
+  },
+  {
+    "path": [
+      "pages",
+      "contact",
+      "contactFormDescription"
+    ],
+    "previous": "Send your question to the school office. Share only the information needed for a reply; do not submit identity or medical documents through this form."
+  },
+  {
+    "path": [
+      "pages",
+      "contact",
+      "mapTitle"
+    ],
+    "previous": "Visit or contact us"
+  },
+  {
+    "path": [
+      "pages",
+      "contact",
+      "heading"
+    ],
+    "previous": "Get in touch with the school"
+  },
+  {
+    "path": [
+      "pages",
+      "contact",
+      "body"
+    ],
+    "previous": "Call or email the school office, or use the enquiry form to send a message. Share only the details needed for the school team to respond; avoid sending sensitive identity or medical documents through a general enquiry form."
+  },
+  {
+    "path": [
+      "pages",
+      "contact",
+      "sections"
+    ],
+    "previous": [
+      {
+        "title": "School address",
+        "description": "New Lepa, Kasrawad, Khargone, Madhya Pradesh 451228"
+      },
+      {
+        "title": "Phone / WhatsApp",
+        "description": "7247371421"
+      },
+      {
+        "title": "Email",
+        "description": "gurukulacedmynewlepa@gmail.com"
+      }
+    ]
+  },
+  {
+    "path": [
+      "pages",
+      "disclosure",
+      "subtitle"
+    ],
+    "previous": "Access school documents and official information released for families and the wider community."
+  },
+  {
+    "path": [
+      "pages",
+      "disclosure",
+      "documentDescription"
+    ],
+    "previous": "This page lists documents uploaded or linked by the school administration, with descriptions to help families identify each record."
+  },
+  {
+    "path": [
+      "pages",
+      "disclosure",
+      "documentsEmptyText"
+    ],
+    "previous": "No documents are available online yet. Contact the school office to request an approved copy of a record you need."
+  },
+  {
+    "path": [
+      "pages",
+      "disclosure",
+      "recordsTitle"
+    ],
+    "previous": "About school records"
+  },
+  {
+    "path": [
+      "pages",
+      "disclosure",
+      "recordsSubtitle"
+    ],
+    "previous": "The administration should keep published information accurate and current."
+  },
+  {
+    "path": [
+      "pages",
+      "disclosure",
+      "heading"
+    ],
+    "previous": "Verified information, available in one place"
+  },
+  {
+    "path": [
+      "pages",
+      "disclosure",
+      "body"
+    ],
+    "previous": "The school can use this page to share approved certificates, policies, statutory disclosures and other official records. Each document should be reviewed for accuracy and updated by the administration when a newer version is available."
+  },
+  {
+    "path": [
+      "pages",
+      "disclosure",
+      "sections"
+    ],
+    "previous": [
+      {
+        "title": "Official school information",
+        "description": "The school administration should publish only current, approved records and should review these documents regularly."
+      },
+      {
+        "title": "Document access",
+        "description": "If a document is not listed, contact the school office to request the current official copy."
+      }
+    ]
+  },
+  {
+    "path": [
+      "pages",
+      "calendar",
+      "subtitle"
+    ],
+    "previous": "Find published school events, celebrations, holiday dates and examination updates in one place."
+  },
+  {
+    "path": [
+      "pages",
+      "calendar",
+      "heading"
+    ],
+    "previous": "Plan ahead with school updates"
+  },
+  {
+    "path": [
+      "pages",
+      "calendar",
+      "body"
+    ],
+    "previous": "Review school events, celebration dates, holidays and examination updates. Published records are maintained by the school administration and should be checked for the latest confirmed information."
+  },
+  {
+    "path": [
+      "pages",
+      "schoolLife",
+      "subtitle"
+    ],
+    "previous": "Learning includes classroom practice, participation, creativity and play."
+  },
+  {
+    "path": [
+      "pages",
+      "schoolLife",
+      "sectionsTitle"
+    ],
+    "previous": "Learn. Explore. Take part."
+  },
+  {
+    "path": [
+      "pages",
+      "schoolLife",
+      "sectionsSubtitle"
+    ],
+    "previous": "Discover the kinds of learning, participation and school-life experiences the academy shares with its community."
+  },
+  {
+    "path": [
+      "pages",
+      "schoolLife",
+      "schoolLifeDisclaimer"
+    ],
+    "previous": "The images on this page are illustrative examples of learning and participation, not photographs documenting actual academy activities."
+  },
+  {
+    "path": [
+      "pages",
+      "schoolLife",
+      "heading"
+    ],
+    "previous": "Growing beyond the textbook"
+  },
+  {
+    "path": [
+      "pages",
+      "schoolLife",
+      "body"
+    ],
+    "previous": "School life includes opportunities to practise working with others, communicate ideas and build confidence. Contact the academy for current information about clubs, events and activities."
+  },
+  {
+    "path": [
+      "pages",
+      "schoolLife",
+      "sections"
+    ],
+    "previous": [
+      {
+        "title": "Create together",
+        "description": "Encourage collaboration and creative expression.",
+        "image": "/images/creative-arts.webp",
+        "alt": "Illustrative students creating an arts-and-crafts project"
+      },
+      {
+        "title": "Community and respect",
+        "description": "Build positive routines and a sense of belonging.",
+        "image": "/images/school-assembly.webp",
+        "alt": "Illustrative school community assembly"
+      },
+      {
+        "title": "Play as a team",
+        "description": "Build cooperation, effort and respect through physical activity.",
+        "image": "/images/sports-activity.webp",
+        "alt": "Illustrative school sport"
+      }
+    ]
+  },
+  {
+    "path": [
+      "pages",
+      "privacy",
+      "subtitle"
+    ],
+    "previous": "How information submitted through this school website should be handled."
+  },
+  {
+    "path": [
+      "pages",
+      "privacy",
+      "privacySectionsTitle"
+    ],
+    "previous": "Privacy principles"
+  },
+  {
+    "path": [
+      "pages",
+      "privacy",
+      "privacySectionsSubtitle"
+    ],
+    "previous": "How the academy uses enquiry details and how families can ask questions about their information."
+  },
+  {
+    "path": [
+      "pages",
+      "privacy",
+      "heading"
+    ],
+    "previous": "Your information matters"
+  },
+  {
+    "path": [
+      "pages",
+      "privacy",
+      "body"
+    ],
+    "previous": "The contact and admission enquiry forms may ask for a parent or guardian name, phone number, email address, class of interest and message. The school uses these details to respond to enquiries and coordinate follow-up. Do not submit Aadhaar numbers, financial information, medical records or other sensitive documents through a general enquiry form. For questions about the handling or deletion of an enquiry, contact the school office."
+  },
+  {
+    "path": [
+      "pages",
+      "privacy",
+      "sections"
+    ],
+    "previous": [
+      {
+        "title": "Use of submitted information",
+        "description": "Information submitted through a form is used to respond to the question and manage follow-up. Depending on the services enabled by the school, enquiry details may also be routed to its designated email or follow-up spreadsheet."
+      },
+      {
+        "title": "Access and retention",
+        "description": "Enquiry records are available through password-protected administration tools. The school should limit access to authorised staff and apply its approved retention and deletion policy."
+      },
+      {
+        "title": "Contact",
+        "description": "For questions about an enquiry, contact gurukulacedmynewlepa@gmail.com."
+      }
+    ]
+  },
+  {
+    "path": [
+      "seo",
+      "title"
+    ],
+    "previous": "Shri Gurukul Academy New Lepa | Classes 1–10"
+  },
+  {
+    "path": [
+      "seo",
+      "description"
+    ],
+    "previous": "Shri Gurukul Academy New Lepa in Kasrawad, Khargone, Madhya Pradesh shares information for Classes 1–10, academics, school notices, calendar updates and admission enquiries."
+  },
+  {
+    "path": [
+      "seo",
+      "keywords"
+    ],
+    "previous": [
+      "Shri Gurukul Academy New Lepa",
+      "school in New Lepa",
+      "school in Kasrawad Khargone",
+      "school in Khargone Madhya Pradesh",
+      "Classes 1 to 10 in Khargone",
+      "school admission New Lepa",
+      "Shri Gurukul Academy contact"
+    ]
+  }
+]

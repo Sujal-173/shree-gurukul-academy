@@ -1,0 +1,606 @@
+/* Public design layer: shared, responsive page alignment and component polish. */
+/* -------------------------------------------------------------------------
+   Academy-wide public page refinement
+   Shared page components intentionally use one centered content system so
+   the About, Academics, Admission, Facilities, and all supporting pages align.
+   ------------------------------------------------------------------------- */
+#main-content {
+  min-width: 0;
+  overflow-x: clip;
+}
+
+#main-content .wrap {
+  width: min(var(--content), calc(100% - 56px));
+  margin-inline: auto;
+}
+
+#main-content .section-pad {
+  padding-block: clamp(54px, 6.2vw, 82px);
+}
+
+#main-content .page-hero {
+  isolation: isolate;
+  border-bottom-width: 3px;
+}
+
+#main-content .page-hero-inner {
+  width: min(var(--content), calc(100% - 56px));
+  padding-block: clamp(32px, 4vw, 48px) clamp(26px, 3vw, 36px);
+  margin-inline: auto;
+}
+
+#main-content .page-hero h1 {
+  max-width: 25ch;
+  margin-inline: auto;
+  font-size: clamp(31px, 3.6vw, 43px);
+  line-height: 1.15;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+
+#main-content .page-hero p {
+  width: min(100%, 68ch);
+  margin: 12px auto 10px;
+  font-size: clamp(12px, 1.25vw, 14px);
+  line-height: 1.8;
+  text-wrap: pretty;
+}
+
+#main-content .breadcrumbs {
+  gap: 9px;
+  margin-top: 12px;
+  font-size: 11px;
+}
+
+#main-content .page-intro {
+  padding-block: clamp(58px, 7vw, 88px);
+  background: #fff;
+}
+
+/* Key correction: the split layout must keep the .wrap max-width rather than
+   expanding to the viewport edge and pushing the copy/image out of alignment. */
+#main-content .page-intro .split-layout:not(.no-image) {
+  width: min(var(--content), calc(100% - 56px));
+  max-width: var(--content);
+  margin-inline: auto;
+  grid-template-columns: minmax(0, 1fr) minmax(0, .98fr);
+  align-items: center;
+  gap: clamp(34px, 5.2vw, 72px);
+}
+
+#main-content .page-intro .split-layout > * {
+  min-width: 0;
+}
+
+#main-content .page-intro .split-copy {
+  width: 100%;
+  max-width: 600px;
+  justify-self: start;
+}
+
+#main-content .page-intro .split-copy h2 {
+  max-width: 17ch;
+  margin: 10px 0 0;
+  font-size: clamp(31px, 3.2vw, 44px);
+  line-height: 1.18;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+
+#main-content .page-intro .split-copy > p {
+  width: min(100%, 65ch);
+  margin-block: 18px 0;
+  font-size: 14px;
+  line-height: 1.9;
+  text-wrap: pretty;
+}
+
+#main-content .page-intro .split-copy .title-rule {
+  margin-block: 16px 18px;
+}
+
+#main-content .page-intro .split-image {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  aspect-ratio: 1.2 / 1;
+  margin: 0;
+  isolation: isolate;
+}
+
+#main-content .page-intro .split-image > img {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(114, 28, 36, .08);
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0 18px 42px rgba(48, 29, 24, .12);
+}
+
+#main-content .page-intro .split-layout.no-image {
+  width: min(100%, 900px);
+  max-width: 900px;
+  margin-inline: auto;
+}
+
+#main-content .section-heading,
+#main-content .section-heading.text-left {
+  width: min(100%, 760px);
+  margin: 0 auto clamp(28px, 3.4vw, 44px);
+}
+
+#main-content .section-heading.text-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#main-content .section-heading h2 {
+  max-width: 23ch;
+  font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+#main-content .section-heading p {
+  width: min(100%, 68ch);
+  font-size: 14px;
+  line-height: 1.8;
+  text-wrap: pretty;
+}
+
+#main-content .content-grid {
+  width: 100%;
+  align-items: stretch;
+  gap: clamp(14px, 1.8vw, 22px);
+}
+
+#main-content .content-card {
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border-color: #eee5dc;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(48, 29, 24, .045);
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+#main-content .content-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(215, 166, 47, .7);
+  box-shadow: 0 14px 34px rgba(48, 29, 24, .09);
+}
+
+#main-content .content-card-media {
+  overflow: hidden;
+  background: var(--warm);
+}
+
+#main-content .content-card-media img {
+  object-fit: cover;
+}
+
+#main-content .content-card-body {
+  min-width: 0;
+  padding: clamp(18px, 2vw, 25px);
+}
+
+#main-content .academic-levels,
+#main-content .vision-feature-grid,
+#main-content .admission-info-grid,
+#main-content .admission-reference-details-grid {
+  width: min(100%, 1040px);
+  margin-inline: auto;
+  align-items: stretch;
+  gap: clamp(14px, 2vw, 24px);
+}
+
+#main-content .academic-level,
+#main-content .vision-feature,
+#main-content .admission-reference-card {
+  min-width: 0;
+  height: 100%;
+  border-radius: 14px;
+  box-shadow: 0 9px 28px rgba(48, 29, 24, .05);
+}
+
+#main-content .calendar-promo-inner {
+  width: min(var(--content), calc(100% - 56px));
+  margin-inline: auto;
+  gap: clamp(15px, 2vw, 24px);
+}
+
+#main-content .calendar-promo-inner > div:nth-child(2) {
+  min-width: 0;
+}
+
+#main-content .calendar-promo h2 {
+  font-size: clamp(20px, 2.1vw, 25px);
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+#main-content .calendar-promo p {
+  max-width: 70ch;
+  line-height: 1.7;
+}
+
+#main-content .two-card-highlight {
+  width: min(100%, 1040px);
+  margin-inline: auto;
+  padding: clamp(23px, 3vw, 40px);
+  gap: clamp(24px, 4vw, 52px);
+  border-radius: 16px;
+}
+
+#main-content .admission-process-section .wrap,
+#main-content .admission-reference-form-wrap,
+#main-content .admission-contact-strip {
+  width: min(100%, 1040px);
+  margin-inline: auto;
+}
+
+#main-content .admission-process-section .section-heading {
+  margin-bottom: clamp(28px, 3.6vw, 42px);
+}
+
+#main-content .process-list.process-grid {
+  width: min(100%, 980px);
+  max-width: 980px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(14px, 2vw, 22px);
+}
+
+#main-content .process-list.process-grid .process-card {
+  height: 100%;
+  padding: clamp(20px, 2.5vw, 30px);
+  border-radius: 14px;
+  box-shadow: 0 9px 28px rgba(48, 29, 24, .05);
+}
+
+#main-content .admission-reference-details-grid {
+  max-width: 1040px;
+}
+
+#main-content .admission-contact-strip {
+  margin-top: 24px;
+  padding: clamp(20px, 3vw, 30px);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+
+#main-content .admission-reference-form-wrap {
+  max-width: 860px;
+}
+
+#main-content .admission-reference-form {
+  border-radius: 15px;
+  box-shadow: 0 12px 36px rgba(48, 29, 24, .07);
+}
+
+#main-content .admission-faq-section .wrap {
+  max-width: 920px;
+}
+
+#main-content .faq-list {
+  width: min(100%, 840px);
+  margin-inline: auto;
+}
+
+#main-content .notices-page-list {
+  width: min(100%, 900px);
+  max-width: 900px;
+  margin-inline: auto;
+}
+
+#main-content .notice-page-card {
+  min-width: 0;
+  border-radius: 14px;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+#main-content .notice-page-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+#main-content .gallery-page-section > .wrap {
+  max-width: 1120px;
+}
+
+#main-content .gallery-grid {
+  width: 100%;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.6vw, 20px);
+}
+
+#main-content .gallery-photo {
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(48, 29, 24, .08);
+}
+
+#main-content .contact-layout {
+  width: min(100%, 1100px);
+  max-width: 1100px;
+  margin-inline: auto;
+  gap: clamp(18px, 2.4vw, 30px);
+}
+
+#main-content .contact-info-card,
+#main-content .contact-form-card {
+  min-width: 0;
+  border-radius: 15px;
+  box-shadow: 0 10px 32px rgba(48, 29, 24, .07);
+}
+
+#main-content .location-inner {
+  width: min(var(--content), calc(100% - 56px));
+  margin-inline: auto;
+  gap: clamp(24px, 4vw, 50px);
+}
+
+#main-content .vision-feature-grid {
+  max-width: 1000px;
+}
+
+#main-content .vision-feature {
+  min-height: 0;
+  padding: clamp(24px, 3vw, 34px);
+}
+
+#main-content .document-header,
+#main-content .document-list {
+  width: min(100%, 980px);
+  margin-inline: auto;
+}
+
+#main-content .document-header {
+  margin-bottom: 24px;
+  align-items: flex-start;
+}
+
+#main-content .document-list {
+  display: grid;
+  gap: 13px;
+}
+
+#main-content .document-row {
+  min-width: 0;
+  border-radius: 13px;
+  box-shadow: 0 7px 20px rgba(48, 29, 24, .04);
+}
+
+#main-content .privacy-review-note,
+#main-content .notice-disclaimer {
+  width: min(var(--content), calc(100% - 56px));
+  max-width: 1120px;
+  margin: 24px auto 38px;
+}
+
+#main-content .calendar-main,
+#main-content .calendar-category-wrap {
+  width: min(var(--content), calc(100% - 56px));
+  max-width: 1120px;
+  margin-inline: auto;
+}
+
+#main-content .calendar-category-shortcuts {
+  max-width: 1060px;
+}
+
+#main-content .calendar-entry-grid.is-single {
+  width: min(100%, 760px);
+  grid-template-columns: minmax(0, 1fr);
+  margin-inline: auto;
+}
+
+#main-content .calendar-entry-card {
+  min-width: 0;
+  border-radius: 15px;
+  box-shadow: 0 11px 32px rgba(48, 29, 24, .05);
+}
+
+#main-content .empty-state,
+#main-content .calendar-entry-empty {
+  width: min(100%, 820px);
+  margin-inline: auto;
+  border-radius: 14px;
+}
+
+#main-content .page-section-list > .wrap {
+  width: min(var(--content), calc(100% - 56px));
+  margin-inline: auto;
+}
+
+@media (max-width: 1020px) {
+  #main-content .page-intro .split-layout:not(.no-image) {
+    gap: 30px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, .95fr);
+  }
+
+  #main-content .page-intro .split-copy h2 {
+    font-size: clamp(29px, 3.4vw, 38px);
+  }
+
+  #main-content .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  #main-content .wrap,
+  #main-content .page-hero-inner,
+  #main-content .page-intro .split-layout:not(.no-image),
+  #main-content .calendar-promo-inner,
+  #main-content .location-inner,
+  #main-content .privacy-review-note,
+  #main-content .notice-disclaimer,
+  #main-content .calendar-main,
+  #main-content .calendar-category-wrap,
+  #main-content .page-section-list > .wrap {
+    width: min(var(--content), calc(100% - 36px));
+  }
+
+  #main-content .section-pad {
+    padding-block: 54px;
+  }
+
+  #main-content .page-hero-inner {
+    padding-block: 29px 25px;
+  }
+
+  #main-content .page-hero h1 {
+    max-width: 21ch;
+    font-size: clamp(29px, 7vw, 37px);
+  }
+
+  #main-content .page-hero p {
+    font-size: 12px;
+  }
+
+  #main-content .page-intro {
+    padding-block: 48px;
+  }
+
+  #main-content .page-intro .split-layout:not(.no-image) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  #main-content .page-intro .split-layout.no-image {
+    width: min(var(--content), calc(100% - 36px));
+  }
+
+  #main-content .page-intro .split-copy {
+    max-width: 680px;
+    margin-inline: auto;
+  }
+
+  #main-content .page-intro .split-copy h2 {
+    max-width: 22ch;
+    margin-inline: auto;
+    font-size: clamp(29px, 7.4vw, 36px);
+    text-align: center;
+  }
+
+  #main-content .page-intro .split-copy .eyebrow {
+    justify-content: center;
+    width: 100%;
+  }
+
+  #main-content .page-intro .split-copy .title-rule {
+    margin-inline: auto;
+  }
+
+  #main-content .page-intro .split-copy > p {
+    width: min(100%, 68ch);
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  #main-content .page-intro .split-image {
+    width: min(100%, 680px);
+    aspect-ratio: 1.3 / 1;
+    margin-inline: auto;
+  }
+
+  #main-content .academic-levels,
+  #main-content .vision-feature-grid,
+  #main-content .admission-info-grid,
+  #main-content .admission-reference-details-grid,
+  #main-content .process-list.process-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #main-content .calendar-promo-inner {
+    align-items: flex-start;
+  }
+
+  #main-content .calendar-promo-inner > .button {
+    margin-left: 0;
+  }
+
+  #main-content .two-card-highlight {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #main-content .notices-page-list {
+    width: 100%;
+  }
+
+  #main-content .gallery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #main-content .contact-layout {
+    width: min(var(--content), calc(100% - 36px));
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #main-content .document-header {
+    align-items: flex-start;
+  }
+
+  #main-content .document-row {
+    grid-template-columns: 42px minmax(0, 1fr);
+    gap: 12px;
+    padding: 16px;
+  }
+
+  #main-content .document-row > .button {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 480px) {
+  #main-content .page-intro .split-layout.no-image {
+    width: calc(100% - 30px);
+  }
+
+  #main-content .wrap,
+  #main-content .page-hero-inner,
+  #main-content .page-intro .split-layout:not(.no-image),
+  #main-content .calendar-promo-inner,
+  #main-content .location-inner,
+  #main-content .privacy-review-note,
+  #main-content .notice-disclaimer,
+  #main-content .calendar-main,
+  #main-content .calendar-category-wrap,
+  #main-content .page-section-list > .wrap {
+    width: calc(100% - 30px);
+  }
+
+  #main-content .section-heading h2 {
+    font-size: clamp(26px, 8vw, 32px);
+  }
+
+  #main-content .academic-level {
+    padding: 21px;
+  }
+
+  #main-content .gallery-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #main-content .gallery-photo {
+    aspect-ratio: 1.45 / 1;
+  }
+
+  #main-content .notice-page-card {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 13px;
+    padding: 15px;
+  }
+
+  #main-content .document-header {
+    gap: 12px;
+  }
+
+  #main-content .document-header h2 {
+    font-size: clamp(24px, 7vw, 30px);
+  }
+}

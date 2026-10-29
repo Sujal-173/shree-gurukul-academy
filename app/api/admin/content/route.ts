@@ -6,6 +6,7 @@ import { clientIp, isSameOrigin, jsonError, rateLimit } from "@/lib/security";
 import { sanitizeContent } from "@/lib/sanitize-content";
 import { contentSchema } from "@/lib/validators";
 import { allowedContentScopes, mergeScopedContent } from "@/lib/content-scope";
+import { validatePublishedCalendarRecords, validatePublishedCalendarResources, validatePublishedNoticeRecords } from "@/lib/published-content-validation";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -48,6 +49,12 @@ export async function POST(request: NextRequest) {
   if (!parsed.success) return jsonError(`Invalid content structure: ${parsed.error.issues.slice(0, 3).map((item) => item.path.join(".")).join(", ")}`, 400);
   const boundIssue = validateContentBounds(parsed.data);
   if (boundIssue) return jsonError(boundIssue, 400);
+  const calendarIssue = (!scope || scope === "calendar") ? validatePublishedCalendarRecords(parsed.data) : null;
+  if (calendarIssue) return jsonError(calendarIssue, 400);
+  const resourcesIssue = (!scope || scope === "calendar") ? validatePublishedCalendarResources(parsed.data) : null;
+  if (resourcesIssue) return jsonError(resourcesIssue, 400);
+  const noticeIssue = (!scope || scope === "home" || scope === "notices") ? validatePublishedNoticeRecords(parsed.data, scope === "home" || scope === "notices" ? scope : undefined) : null;
+  if (noticeIssue) return jsonError(noticeIssue, 400);
   try {
     const db = await getDb();
     const currentContent = db.collection<{ _id: string; content: unknown; updatedAt?: Date | string; updatedBy?: string; version?: number }>("siteContent");

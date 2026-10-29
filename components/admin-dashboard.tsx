@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { SiteContent } from "@/lib/types";
-import { getGalleryCategory } from "@/lib/gallery-category";
 import { Icon, type IconName } from "@/components/icon";
 import { CmsImageField } from "@/components/cms-image-field";
 import {
@@ -21,6 +20,8 @@ type MediaItem = {
   format?: string;
   bytes?: number;
   originalName?: string;
+  mimeType?: string;
+  resourceType?: string;
   createdAt?: string;
 };
 type Inquiry = {
@@ -47,13 +48,20 @@ type ContentRevision = {
 };
 const tabs = [
   { key: "overview", label: "Overview", icon: "layout-dashboard" },
-  { key: "content", label: "Advanced full-site editor", icon: "pen-line" },
+  { key: "content", label: "Advanced editor", icon: "file-text" },
   { key: "media", label: "Media library", icon: "images" },
-  { key: "reels", label: "Reel covers", icon: "image" },
+  { key: "reels", label: "Social creative", icon: "image" },
   { key: "inquiries", label: "Enquiries", icon: "mail" },
-  { key: "history", label: "Content history", icon: "clock" },
+  { key: "history", label: "Revision history", icon: "clock" },
 ] as const;
 type Tab = (typeof tabs)[number]["key"];
+type AdminNavKey = Tab | "pages";
+const adminNavGroups: { label: string; items: readonly AdminNavKey[] }[] = [
+  { label: "WORKSPACE", items: ["overview"] },
+  { label: "WEBSITE CONTENT", items: ["pages", "media"] },
+  { label: "COMMUNICATION", items: ["inquiries"] },
+  { label: "TOOLS & HISTORY", items: ["reels", "history", "content"] },
+];
 
 const heroFields: CmsArrayFieldDefinition[] = [
   { key: "eyebrow", label: "Eyebrow" },
@@ -90,6 +98,9 @@ const noticeFields: CmsArrayFieldDefinition[] = [
   { key: "title", label: "Notice title" },
   { key: "date", label: "Date / date label" },
   { key: "description", label: "Description", multiline: true },
+  { key: "imageUrl", label: "Notice image / poster", kind: "image" },
+  { key: "imageAlt", label: "Image description (alt text)" },
+  { key: "attachmentUrl", label: "Circular / PDF attachment", kind: "attachment" },
   { key: "active", label: "Published on public site", kind: "toggle" },
 ];
 const linkFields: CmsArrayFieldDefinition[] = [
@@ -223,13 +234,6 @@ export function AdminDashboard({
       return null;
     }
   }, [draft]);
-  const galleryPhotos = (initialContent.pages.gallery.sections || []).filter(
-    (item) => item.image,
-  );
-  const galleryCategories = new Set(galleryPhotos.map(getGalleryCategory));
-  const galleryPhotosWithoutAlt = galleryPhotos.filter(
-    (item) => !item.alt?.trim(),
-  ).length;
 
   const loadMedia = useCallback(async (force = false) => {
     if (mediaLoaded.current && !force) return;
@@ -510,6 +514,31 @@ export function AdminDashboard({
     }
   }
 
+  async function uploadAttachment(fileToUpload: File, path: string[]) {
+    setUploading(true);
+    setNotice(null);
+    const form = new FormData();
+    form.append("file", fileToUpload);
+    form.append("purpose", "attachment");
+    try {
+      const response = await fetch("/api/admin/upload", { method: "POST", body: form });
+      const result = (await response.json()) as { media?: MediaItem & { mimeType?: string }; error?: string };
+      if (!response.ok || !result.media) throw new Error(result.error || "Attachment upload failed.");
+      if (path.length) {
+        updateDraftField(path, result.media.url);
+        const base = path.slice(0, -1);
+        const isDocumentField = path[path.length - 1] === "documentUrl";
+        updateDraftField([...base, isDocumentField ? "documentName" : "attachmentName"], result.media.originalName || fileToUpload.name);
+        updateDraftField([...base, isDocumentField ? "documentType" : "attachmentType"], result.media.mimeType || fileToUpload.type);
+      }
+      setNotice({ kind: "success", text: "Attachment uploaded and linked. Save website content to publish it." });
+    } catch (error) {
+      setNotice({ kind: "error", text: error instanceof Error ? error.message : "Attachment upload failed." });
+    } finally {
+      setUploading(false);
+    }
+  }
+
   function changeArray(
     path: string[],
     mutate: (items: unknown[]) => unknown[],
@@ -656,44 +685,45 @@ export function AdminDashboard({
     <div className="admin-shell">
       <aside className="admin-sidebar">
         <Link href="/" className="admin-brand">
-          <Image src="/images/crest.svg" alt="" width={45} height={50} />
+          <Image src="/images/crest.webp" alt="" width={45} height={50} />
           <span>
             <strong>Gurukul Academy</strong>
             <small>WEBSITE CMS</small>
           </span>
         </Link>
         <nav className="admin-nav" aria-label="Admin sections">
-          {tabs.map((item) => (
-            <button
-              type="button"
-              key={item.key}
-              className={tab === item.key ? "admin-tab active" : "admin-tab"}
-              onClick={() => {
-                setTab(item.key);
-                setNotice(null);
-              }}
-            >
-              <span>
-                <Icon name={item.icon as IconName} size={18} />
-              </span>
-              {item.label}
-            </button>
+          {adminNavGroups.map((group) => (
+            <div className="admin-nav-group" key={group.label}>
+              <span className="admin-nav-label">{group.label}</span>
+              {group.items.map((itemKey) => {
+                if (itemKey === "pages") {
+                  return (
+                    <Link href="/admin/pages" className="admin-tab admin-tab-link" key="pages">
+                      <span><Icon name="folder-open" size={18} /></span>
+                      Website pages
+                    </Link>
+                  );
+                }
+                const item = tabs.find((entry) => entry.key === itemKey);
+                if (!item) return null;
+                return (
+                  <button
+                    type="button"
+                    key={item.key}
+                    className={tab === item.key ? "admin-tab active" : "admin-tab"}
+                    aria-current={tab === item.key ? "page" : undefined}
+                    onClick={() => {
+                      setTab(item.key);
+                      setNotice(null);
+                    }}
+                  >
+                    <span><Icon name={item.icon as IconName} size={18} /></span>
+                    {item.label}
+                  </button>
+                );
+              })}
+            </div>
           ))}
-          <Link href="/admin/pages" className="admin-tab admin-tab-link">
-            <span>
-              <Icon name="folder-open" size={18} />
-            </span>
-            Separate page editors
-          </Link>
-          <Link
-            href="/admin/pages/gallery"
-            className="admin-tab admin-tab-link"
-          >
-            <span>
-              <Icon name="images" size={18} />
-            </span>
-            Manage gallery
-          </Link>
         </nav>
         <div className="admin-sidebar-bottom">
           <span className="admin-avatar">
@@ -742,14 +772,31 @@ export function AdminDashboard({
                 <span className="eyebrow">CONTENT CONTROL CENTRE</span>
                 <h2>Welcome back.</h2>
                 <p>
-                  Keep the academy website current from one place. Edit all page
-                  copy and structured sections, upload optimized media, and
-                  follow up on school enquiries.
+                  Manage one task at a time: update a specific page, review uploaded media,
+                  respond to enquiries, or restore an earlier content revision. Each workflow
+                  has its own focused workspace.
                 </p>
               </div>
               <div className="admin-welcome-mark">
                 <Icon name="sparkles" size={34} />
               </div>
+            </div>
+            <div className="admin-quick-actions" aria-label="Common publishing tasks">
+              <Link href="/admin/pages/calendar">
+                <span className="admin-quick-icon"><Icon name="calendar-days" size={18} /></span>
+                <span><strong>Publish calendar update</strong><small>Events, holidays and examinations</small></span>
+                <Icon name="arrow-up-right" size={16} />
+              </Link>
+              <Link href="/admin/pages/notices">
+                <span className="admin-quick-icon"><Icon name="bell" size={18} /></span>
+                <span><strong>Publish a notice</strong><small>Announcements and circulars</small></span>
+                <Icon name="arrow-up-right" size={16} />
+              </Link>
+              <Link href="/admin/pages/admission">
+                <span className="admin-quick-icon"><Icon name="graduation-cap" size={18} /></span>
+                <span><strong>Update admissions page</strong><small>Process, FAQs and enquiry content</small></span>
+                <Icon name="arrow-up-right" size={16} />
+              </Link>
             </div>
             <div className="admin-stats">
               <article>
@@ -788,88 +835,8 @@ export function AdminDashboard({
                 </button>
               </article>
             </div>
-            <section className="admin-gallery-card">
-              <div className="admin-gallery-heading">
-                <div>
-                  <span className="eyebrow">PHOTO MANAGEMENT</span>
-                  <h3>Gallery overview</h3>
-                  <p>
-                    Review photo coverage, organise categories and check
-                    captions before publishing.
-                  </p>
-                </div>
-                <div className="admin-gallery-actions">
-                  <Link
-                    className="button button-outline button-small"
-                    href="/gallery"
-                    target="_blank"
-                  >
-                    Preview gallery <Icon name="external-link" size={14} />
-                  </Link>
-                  <Link
-                    className="button button-primary button-small"
-                    href="/admin/pages/gallery"
-                  >
-                    Manage photos <Icon name="arrow-right" size={14} />
-                  </Link>
-                </div>
-              </div>
-              <div className="admin-gallery-metrics">
-                <div>
-                  <strong>{galleryPhotos.length}</strong>
-                  <span>Photos in gallery</span>
-                </div>
-                <div>
-                  <strong>{galleryCategories.size}</strong>
-                  <span>Public categories</span>
-                </div>
-                <div
-                  className={galleryPhotosWithoutAlt ? "needs-attention" : ""}
-                >
-                  <strong>{galleryPhotosWithoutAlt}</strong>
-                  <span>Missing alt text</span>
-                </div>
-              </div>
-              {galleryPhotos.length > 0 ? (
-                <div className="admin-gallery-thumbnails">
-                  {galleryPhotos.slice(0, 5).map((photo, index) => (
-                    <div
-                      className="admin-gallery-thumbnail"
-                      key={`${photo.title}-${index}`}
-                    >
-                      <Image
-                        alt={photo.alt || ""}
-                        fill
-                        sizes="(max-width: 760px) 25vw, 140px"
-                        src={photo.image!}
-                      />
-                      <span>{getGalleryCategory(photo)}</span>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="admin-gallery-empty">
-                  No gallery photos yet. Add approved school photos from the
-                  Gallery page editor.
-                </p>
-              )}
-            </section>
-            <section className="admin-page-edit-launch">
-              <div>
-                <span className="eyebrow">RECOMMENDED WORKFLOW</span>
-                <h3>Edit each website page separately</h3>
-                <p>
-                  Open focused editors for the homepage, About, Academics,
-                  Admissions, Facilities, School Life, Gallery, Notices,
-                  Calendar, Contact, Disclosure, Vision and site settings.
-                </p>
-              </div>
-              <Link href="/admin/pages" className="button button-primary">
-                Open page editors <Icon name="arrow-up-right" size={15} />
-              </Link>
-            </section>
-            <div className="admin-help">
-              <h3>Before publishing</h3>
+            <details className="admin-help">
+              <summary>Before publishing checklist</summary>
               <ul>
                 <li>Upload the academy’s real crest and school photographs.</li>
                 <li>
@@ -879,7 +846,7 @@ export function AdminDashboard({
                 <li>Save a backup of the JSON content before major edits.</li>
                 <li>Confirm MongoDB, Cloudinary and HTTPS are configured.</li>
               </ul>
-            </div>
+            </details>
           </section>
         )}
         {tab === "content" && (
@@ -1039,7 +1006,7 @@ export function AdminDashboard({
                     title: "A strong foundation",
                     highlight: "for a brighter future.",
                     subtitle: "Add a short, verified message for families.",
-                    image: "/images/campus-illustration.png",
+                    image: "/images/campus-illustration.webp",
                     alt: "Illustrative academy campus image",
                     primaryLabel: "Enquire for Admission",
                     primaryHref: "/admission#enquiry",
@@ -1388,7 +1355,12 @@ export function AdminDashboard({
                     category: "General",
                     title: "New notice",
                     date: "",
-                    description: "Add verified announcement details.",
+                    description: "",
+                    imageUrl: "",
+                    imageAlt: "",
+                    attachmentUrl: "",
+                    attachmentName: "",
+                    attachmentType: "",
                     active: false,
                   }}
                   media={media}
@@ -1399,6 +1371,7 @@ export function AdminDashboard({
                   onUpload={(imageFile, imagePath) =>
                     uploadImage(imageFile, imagePath)
                   }
+                  onUploadAttachment={(fileToUpload, path) => uploadAttachment(fileToUpload, path)}
                   addLabel="Add notice"
                 />
 
@@ -1621,7 +1594,12 @@ export function AdminDashboard({
                               category: "General",
                               title: "New notice",
                               date: "",
-                              description: "Add verified announcement details.",
+                              description: "",
+                              imageUrl: "",
+                              imageAlt: "",
+                              attachmentUrl: "",
+                              attachmentName: "",
+                              attachmentType: "",
                               active: false,
                             }}
                             media={media}
@@ -1632,6 +1610,7 @@ export function AdminDashboard({
                             onUpload={(imageFile, imagePath) =>
                               uploadImage(imageFile, imagePath)
                             }
+                            onUploadAttachment={(fileToUpload, path) => uploadAttachment(fileToUpload, path)}
                             addLabel="Add notice"
                           />
                         )}
@@ -2044,7 +2023,7 @@ export function AdminDashboard({
                     value={reelImageUrl}
                     onChange={(event) => setReelImageUrl(event.target.value)}
                   >
-                    <option value="/images/campus-illustration.png">
+                    <option value="/images/campus-illustration.webp">
                       Campus illustration
                     </option>
                     <option value="/images/learning-together.webp">

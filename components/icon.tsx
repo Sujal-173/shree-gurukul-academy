@@ -6,7 +6,7 @@ export type IconName =
   | "map-pin" | "phone" | "mail" | "instagram" | "message-circle" | "facebook" | "youtube" | "globe"
   | "sparkles" | "check" | "check-circle" | "file-text" | "monitor" | "microscope" | "dumbbell" | "library"
   | "shield-check" | "target" | "eye" | "users" | "clock" | "award" | "compass" | "send" | "upload"
-  | "external-link" | "log-out" | "layout-dashboard" | "pen-line" | "folder-open" | "smartphone" | "user-round"
+  | "external-link" | "log-out" | "layout-dashboard" | "pen-line" | "folder-open" | "smartphone" | "user-round" | "alert-circle" | "paperclip"
   | "clipboard-list" | "clipboard-check" | "camera" | "quote" | "heart-handshake" | "handshake" | "file-check"
   | "building" | "book-copy" | "lightbulb" | "palette" | "sun" | "settings" | "search" | "download" | "trash" | "copy" | "refresh-cw" | "zoom-in" | "zoom-out" | "maximize";
 
@@ -84,6 +84,8 @@ const paths: Record<IconName, ReactNode> = {
   "zoom-in": <><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M10.5 7v7M7 10.5h7"/></>,
   "zoom-out": <><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5M7 10.5h7"/></>,
   maximize: <><path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M3 16v3a2 2 0 0 0 2 2h3"/></>,
+  "alert-circle": <><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16h.01"/></>,
+  paperclip: <><path d="m21.4 11.5-8.9 8.9a5.5 5.5 0 0 1-7.8-7.8l9.2-9.2a3.7 3.7 0 0 1 5.2 5.2l-9.2 9.2a1.9 1.9 0 0 1-2.6-2.6l8.1-8.1"/></>,
 };
 
 export function Icon({ name, size = 20, strokeWidth = 1.8, className = "" }: { name: IconName; size?: number; strokeWidth?: number; className?: string }) {

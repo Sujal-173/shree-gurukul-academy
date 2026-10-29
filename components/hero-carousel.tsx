@@ -18,7 +18,7 @@ function getMotionPreference() {
   return window.matchMedia(motionPreference).matches;
 }
 
-export function HeroCarousel({ slides, gradeRange = "Classes 1–10", captionTitle = "Learning. Values. Growth.", captionSubtitle = "Every step matters.", locationLabel = "NEW LEPA · MADHYA PRADESH", emblemUrl = "/images/crest.svg" }: { slides: HeroSlide[]; gradeRange?: string; captionTitle?: string; captionSubtitle?: string; locationLabel?: string; emblemUrl?: string }) {
+export function HeroCarousel({ slides, gradeRange = "Classes 1–10", captionTitle = "Learning. Values. Growth.", captionSubtitle = "Every step matters.", locationLabel = "NEW LEPA · MADHYA PRADESH", emblemUrl = "/images/crest.webp" }: { slides: HeroSlide[]; gradeRange?: string; captionTitle?: string; captionSubtitle?: string; locationLabel?: string; emblemUrl?: string }) {
   const safeSlides = slides.length ? slides : [];
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -41,7 +41,7 @@ export function HeroCarousel({ slides, gradeRange = "Classes 1–10", captionTit
   return <section className="home-hero" aria-roledescription="carousel" aria-label="School highlights" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setPaused(false); }}>
     <div className="hero-ribbon" aria-hidden="true"/><div className="wrap hero-layout">
       <div className="hero-copy" key={`copy-${index}`}>
-        <Image className="hero-school-emblem" src={emblemUrl || "/images/crest.svg"} alt="" width={86} height={96} priority/>
+        <Image className="hero-school-emblem" src={emblemUrl || "/images/crest.webp"} alt="" width={86} height={96} priority/>
         <span className="hero-eyebrow"><span className="eyebrow-dot"/>{slide.eyebrow}</span>
         <h1>{slide.title}<br/><em>{slide.highlight}</em></h1>
         <p>{slide.subtitle}</p>
