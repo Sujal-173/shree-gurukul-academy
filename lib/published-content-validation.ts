@@ -89,9 +89,9 @@ export function validatePublishedNoticeRecords(value: unknown, scope?: "home" | 
       const description = typeof record.description === "string" ? record.description.trim() : "";
       if (!title) return `Every published ${list.label} notice needs a title.`;
       if (!description) return `Add details to the published notice “${title}”.`;
+      if (record.imageUrl !== undefined && record.imageUrl !== null && record.imageUrl !== "" && typeof record.imageUrl !== "string") return `The image for notice “${title}” must be a valid image URL.`;
       if (record.attachmentUrl && !isHttpUrl(record.attachmentUrl)) return `The attachment for notice “${title}” must use a valid HTTP or HTTPS URL.`;
       if (record.attachmentType && !isSupportedSchoolAttachmentMime(String(record.attachmentType))) return `The attachment for notice “${title}” must be an approved image format or PDF.`;
-      if (record.imageUrl !== undefined && record.imageUrl !== null && record.imageUrl !== "" && typeof record.imageUrl !== "string") return `The image for notice “${title}” must be a valid image URL.`;
       if (record.imageUrl && typeof record.imageUrl === "string") {
         const image = record.imageUrl.trim();
         const localImage = image.startsWith("/") && !image.startsWith("//") && !image.startsWith("/\\") && !/\.svg(?:[?#].*)?$/i.test(image);

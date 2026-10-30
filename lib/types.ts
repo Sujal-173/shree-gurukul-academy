@@ -82,7 +82,7 @@ export type FAQ = { question: string; answer: string };
 export type ProcessStep = { number: string; title: string; description: string };
 export type AcademicLevel = { range: string; title: string; description: string };
 export type SchoolDocument = { title: string; description: string; url: string; updatedAt: string };
-export type LeaderProfile = { role: string; name: string; designation: string; message: string; portrait: string; alt: string };
+export type LeaderProfile = { role: string; name: string; designation: string; message: string; quote?: string; portrait: string; alt: string; active?: boolean };
 
 export type PageCopy = {
   title: string;
@@ -91,8 +91,6 @@ export type PageCopy = {
   body: string;
   image?: string;
   imageAlt?: string;
-  privacyImplementationNote?: string;
-  visionDisclaimer?: string;
   sections?: ContentSection[];
   faqs?: FAQ[];
   steps?: ProcessStep[];

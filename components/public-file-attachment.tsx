@@ -47,7 +47,7 @@ export function PublicFileAttachment({
     {image && <a className="public-file-image" href={url} target="_blank" rel="noopener noreferrer" aria-label={`Open ${safeName} in a new tab`}>
       <Image src={url} alt={safeAlt || safeName} width={1200} height={760} unoptimized sizes="(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 560px" />
     </a>}
-    <a className="public-file-link" href={url} target="_blank" rel="noopener noreferrer">
+    <a className="public-file-link" href={url} target="_blank" rel="noopener noreferrer" aria-label={`${label}: ${safeName}`}>
       <span className="public-file-icon"><Icon name={image ? "image" : "file-text"} size={17}/></span>
       <span><strong>{image ? `View ${safeName}` : safeName}</strong><small>{normalizedMime === "application/pdf" || /\.pdf(?:[?#].*)?$/i.test(url) ? "PDF document" : image ? "Image attachment" : "Open attachment"}</small></span>
       <Icon name="arrow-up-right" size={15}/>

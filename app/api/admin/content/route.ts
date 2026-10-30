@@ -7,6 +7,7 @@ import { sanitizeContent } from "@/lib/sanitize-content";
 import { contentSchema } from "@/lib/validators";
 import { allowedContentScopes, mergeScopedContent } from "@/lib/content-scope";
 import { validatePublishedCalendarRecords, validatePublishedCalendarResources, validatePublishedNoticeRecords } from "@/lib/published-content-validation";
+import { validatePublishedLeadership } from "@/lib/leadership-validation";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -55,6 +56,8 @@ export async function POST(request: NextRequest) {
   if (resourcesIssue) return jsonError(resourcesIssue, 400);
   const noticeIssue = (!scope || scope === "home" || scope === "notices") ? validatePublishedNoticeRecords(parsed.data, scope === "home" || scope === "notices" ? scope : undefined) : null;
   if (noticeIssue) return jsonError(noticeIssue, 400);
+  const leadershipIssue = (!scope || scope === "home") ? validatePublishedLeadership(parsed.data) : null;
+  if (leadershipIssue) return jsonError(leadershipIssue, 400);
   try {
     const db = await getDb();
     const currentContent = db.collection<{ _id: string; content: unknown; updatedAt?: Date | string; updatedBy?: string; version?: number }>("siteContent");

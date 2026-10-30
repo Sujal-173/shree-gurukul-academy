@@ -5,6 +5,7 @@ import { getDb } from "@/lib/db";
 import { sanitizeContent } from "@/lib/sanitize-content";
 import copyMigrations from "@/lib/content-copy-migrations.json";
 import type { SiteContent } from "@/lib/types";
+import { publishCompleteLegacyLeaders } from "@/lib/leadership";
 
 function deepMerge<T>(base: T, override: unknown): T {
   if (Array.isArray(base)) return (Array.isArray(override) ? override : base) as T;
@@ -52,6 +53,7 @@ export const getSiteContent = cache(async function loadSiteContent(): Promise<Si
     const savedContent = await getCachedContent();
     if (!savedContent) return sanitizeContent(structuredClone(defaultContent));
     const content = sanitizeContent(deepMerge(structuredClone(defaultContent), savedContent));
+    content.home.leaders = publishCompleteLegacyLeaders(content.home.leaders);
 
     // Apply copy updates only when a saved value is still the known prior default.
     // Custom school-approved copy remains untouched.

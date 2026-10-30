@@ -10,17 +10,17 @@ export const calendarCategories: Record<CalendarCategoryKey, {
 }> = {
   events: {
     label: "Events & Celebrations",
-    description: "School events, celebrations and activity schedules published by the academy.",
+    description: "Dates and information for school events and celebrations confirmed by the academy.",
     aliases: ["event", "events", "celebration", "celebrations", "activity", "activities", "contest", "contests", "competition", "competitions"],
   },
   holidays: {
     label: "Holidays",
-    description: "Official school holidays and vacation schedules confirmed by the school office.",
+    description: "School closure dates and vacation periods approved by the school office.",
     aliases: ["holiday", "holidays", "vacation", "vacations", "school closure"],
   },
   exams: {
     label: "Examinations",
-    description: "Examination dates, class/grade details and assessment schedules published by the academy.",
+    description: "Published examination dates and class-specific timetable updates from the academy.",
     aliases: ["exam", "exams", "examination", "examinations", "test", "tests", "assessment"],
   },
 };

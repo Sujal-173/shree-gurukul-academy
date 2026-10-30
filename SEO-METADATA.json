@@ -1,0 +1,114 @@
+{
+  "/": {
+    "title": "Shri Gurukul Academy New Lepa | School in Kasrawad",
+    "description": "Find information about Classes 1–10, academics, admission enquiries and school updates from Shri Gurukul Academy New Lepa in Kasrawad, Khargone.",
+    "primaryTopic": "Shri Gurukul Academy New Lepa",
+    "searchIntent": "school discovery / branded local search",
+    "index": true
+  },
+  "/about": {
+    "title": "About Shri Gurukul Academy | New Lepa, Kasrawad",
+    "description": "Get to know Shri Gurukul Academy New Lepa in Kasrawad, Khargone, and find practical information for families considering the school.",
+    "primaryTopic": "About Shri Gurukul Academy New Lepa",
+    "searchIntent": "school identity / trust",
+    "index": true
+  },
+  "/academics": {
+    "title": "Academics & Classes 1–10 | Gurukul Academy New Lepa",
+    "description": "Explore the broad learning stages listed for Classes 1–10 and find out how to request the current syllabus, subjects, book list and timetable.",
+    "primaryTopic": "Classes 1–10 at Shri Gurukul Academy",
+    "searchIntent": "academic information",
+    "index": true
+  },
+  "/admission": {
+    "title": "Admission Enquiry | Shri Gurukul Academy New Lepa",
+    "description": "Ask about admission at Shri Gurukul Academy New Lepa in Kasrawad. Check current class availability, eligibility, fees and required documents with the school.",
+    "primaryTopic": "Admission enquiry at Shri Gurukul Academy",
+    "searchIntent": "admission enquiry",
+    "index": true
+  },
+  "/facilities": {
+    "title": "School Facilities | Shri Gurukul Academy New Lepa",
+    "description": "Ask about the current classrooms, learning resources, activities and student arrangements at Shri Gurukul Academy New Lepa in Kasrawad.",
+    "primaryTopic": "School facilities at New Lepa",
+    "searchIntent": "facilities research / visit planning",
+    "index": true
+  },
+  "/notices": {
+    "title": "School Notices & Circulars | Shri Gurukul Academy",
+    "description": "Read school-approved notices, circulars and reminders from Shri Gurukul Academy New Lepa in Kasrawad, Khargone.",
+    "primaryTopic": "Shri Gurukul Academy notices",
+    "searchIntent": "current school updates",
+    "index": true
+  },
+  "/calendar": {
+    "title": "School Calendar | Shri Gurukul Academy New Lepa",
+    "description": "Find published school events, holidays and examination updates from Shri Gurukul Academy New Lepa in Kasrawad, Khargone.",
+    "primaryTopic": "School calendar New Lepa",
+    "searchIntent": "school dates and downloads",
+    "index": true
+  },
+  "/calendar/events": {
+    "title": "School Events & Celebrations | Gurukul Academy",
+    "description": "Check confirmed event and celebration dates published by Shri Gurukul Academy New Lepa. Read the latest school instructions before attending.",
+    "primaryTopic": "School events and celebrations",
+    "searchIntent": "event updates",
+    "index": true
+  },
+  "/calendar/holidays": {
+    "title": "School Holidays | Shri Gurukul Academy New Lepa",
+    "description": "View school holiday and vacation dates after they are confirmed and published by Shri Gurukul Academy in New Lepa, Kasrawad.",
+    "primaryTopic": "School holidays New Lepa",
+    "searchIntent": "holiday schedule",
+    "index": true
+  },
+  "/calendar/exams": {
+    "title": "Exam Dates & Timetables | Gurukul Academy New Lepa",
+    "description": "Find published examination dates and class-specific timetables from Shri Gurukul Academy New Lepa. Check the latest version before each exam.",
+    "primaryTopic": "School examination dates and timetable",
+    "searchIntent": "exam schedule",
+    "index": true
+  },
+  "/gallery": {
+    "title": "School Photo Gallery | Shri Gurukul Academy New Lepa",
+    "description": "See academy-approved photographs and captions from Shri Gurukul Academy New Lepa in Khargone, Madhya Pradesh.",
+    "primaryTopic": "Shri Gurukul Academy photo gallery",
+    "searchIntent": "school photos / validation",
+    "index": true
+  },
+  "/school-life": {
+    "title": "School Life & Activities | Shri Gurukul Academy New Lepa",
+    "description": "Find approved school-life updates and photographs from Shri Gurukul Academy New Lepa, Kasrawad, Khargone.",
+    "primaryTopic": "School life and activities",
+    "searchIntent": "school activities",
+    "index": true
+  },
+  "/vision": {
+    "title": "Vision, Mission & Values | Shri Gurukul Academy",
+    "description": "Read the educational approach and values proposed for Shri Gurukul Academy New Lepa in Kasrawad, Khargone.",
+    "primaryTopic": "School vision and mission",
+    "searchIntent": "school ethos",
+    "index": true
+  },
+  "/contact": {
+    "title": "Contact Shri Gurukul Academy | New Lepa, Kasrawad",
+    "description": "Call, email or send an enquiry to Shri Gurukul Academy New Lepa, located in Kasrawad, Khargone, Madhya Pradesh 451228.",
+    "primaryTopic": "Shri Gurukul Academy contact and location",
+    "searchIntent": "directions / contact",
+    "index": true
+  },
+  "/disclosure": {
+    "title": "School Information & Disclosure | Gurukul Academy",
+    "description": "Find public school information and documents approved for release by Shri Gurukul Academy New Lepa.",
+    "primaryTopic": "School information and documents",
+    "searchIntent": "official records",
+    "index": true
+  },
+  "/privacy": {
+    "title": "Privacy Policy | Shri Gurukul Academy New Lepa",
+    "description": "Read how the Shri Gurukul Academy website handles information submitted through contact and admission enquiry forms.",
+    "primaryTopic": "Website privacy policy",
+    "searchIntent": "privacy information",
+    "index": false
+  }
+}

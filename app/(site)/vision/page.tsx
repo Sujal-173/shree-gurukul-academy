@@ -10,6 +10,7 @@ export async function generateMetadata() {
 export default async function VisionPage() {
   const { pages } = await getSiteContent();
   const page = pages.vision;
+  const disclaimer = typeof page.visionDisclaimer === "string" ? page.visionDisclaimer : "";
   return (
     <>
       <PageHero title={page.title} subtitle={page.subtitle} path="/vision" />
@@ -34,8 +35,8 @@ export default async function VisionPage() {
               </article>
             ))}
           </div>
-          {page.visionDisclaimer?.trim() ? (
-            <p className="notice-disclaimer">{page.visionDisclaimer}</p>
+          {disclaimer.trim() ? (
+            <p className="notice-disclaimer">{disclaimer}</p>
           ) : null}
         </div>
       </section>

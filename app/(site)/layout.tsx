@@ -31,8 +31,8 @@ export default async function WebsiteLayout({ children }: Readonly<{ children: R
     email: content.brand.email,
     address: {
       "@type": "PostalAddress",
-      streetAddress: content.brand.address,
-      addressLocality: "New Lepa, Kasrawad",
+      streetAddress: "New Lepa",
+      addressLocality: "Kasrawad",
       addressRegion: "Madhya Pradesh",
       postalCode: "451228",
       addressCountry: "IN",

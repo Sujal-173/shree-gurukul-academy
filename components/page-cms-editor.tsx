@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import type { SiteContent } from "@/lib/types";
 import { getGalleryCategory } from "@/lib/gallery-category";
@@ -166,23 +166,27 @@ const fieldPresets: Record<string, ArrayConfig> = {
     key: "leaders",
     title: "Leadership profiles",
     description:
-      "Update director, principal and school leadership messages. Names and photographs may be left blank until verified.",
+      "Add approved profiles for the homepage and About page. Complete the role, name and portrait, then enable Published to display a profile publicly.",
     fields: [
       { key: "role", label: "Profile title" },
       { key: "name", label: "Name" },
       { key: "designation", label: "Designation" },
+      { key: "quote", label: "Highlighted quote (optional)", multiline: true },
       { key: "message", label: "Message", multiline: true },
       { key: "portrait", label: "Portrait image", kind: "image" },
       { key: "alt", label: "Portrait alt text", multiline: true },
+      { key: "active", label: "Published on public site", kind: "toggle" },
     ],
     itemLabel: "role",
     template: {
       role: "School leader",
       name: "",
       designation: "",
+      quote: "",
       message: "",
       portrait: "",
       alt: "Portrait of school leader",
+      active: false,
     },
     addLabel: "Add profile",
   },
@@ -520,8 +524,8 @@ export function PageCmsEditor({
   const [content, setContent] = useState<SiteContent>(() =>
     structuredClone(initialContent),
   );
-  const savedRef = useRef(JSON.stringify(initialContent));
-  const hasChanges = JSON.stringify(content) !== savedRef.current;
+  const [savedContent, setSavedContent] = useState(JSON.stringify(initialContent));
+  const hasChanges = JSON.stringify(content) !== savedContent;
   const [media, setMedia] = useState<MediaItem[]>([]);
   const [notice, setNotice] = useState<Notice | null>(null);
   const [loadingMedia, setLoadingMedia] = useState(false);
@@ -552,7 +556,13 @@ export function PageCmsEditor({
     }
   }, []);
   useEffect(() => {
-    void loadMedia();
+    let active = true;
+    queueMicrotask(() => {
+      if (active) void loadMedia();
+    });
+    return () => {
+      active = false;
+    };
   }, [loadMedia]);
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -698,7 +708,7 @@ export function PageCmsEditor({
       };
       if (!response.ok)
         throw new Error(result.error || "Could not save this page.");
-      savedRef.current = JSON.stringify(content);
+      setSavedContent(JSON.stringify(content));
       setNotice({
         kind: "success",
         text: `Saved successfully${result.version ? ` · content version ${result.version}` : ""}. The public page now uses the saved CMS content.`,
@@ -1308,7 +1318,7 @@ export function PageCmsEditor({
                 if (
                   window.confirm("Discard all unsaved changes on this page?")
                 ) {
-                  setContent(JSON.parse(savedRef.current) as SiteContent);
+                  setContent(JSON.parse(savedContent) as SiteContent);
                   setNotice({ kind: "info", text: "Unsaved edits discarded." });
                 }
               }}

@@ -37,7 +37,7 @@ export default async function AdmissionsPage() {
             subtitle={String(page.stepsSubtitle || "Confirm each step, availability and requirements with the school office.")}
           />
 
-          <div className="process-list process-grid" aria-label="Admission process steps">
+          <div className="process-list" aria-label="Admission process steps">
             {(page.steps || []).map((step, index) => (
               <ScrollReveal
                 className={`process-step ${index % 2 ? "process-right" : ""}`}

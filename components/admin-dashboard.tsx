@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { SiteContent } from "@/lib/types";
 import { Icon, type IconName } from "@/components/icon";
@@ -89,9 +90,11 @@ const leaderFields: CmsArrayFieldDefinition[] = [
   { key: "role", label: "Profile title / role" },
   { key: "name", label: "Name" },
   { key: "designation", label: "Designation" },
+  { key: "quote", label: "Highlighted quote (optional)", multiline: true },
   { key: "message", label: "Message", multiline: true },
   { key: "portrait", label: "Portrait image", kind: "image" },
   { key: "alt", label: "Portrait alt text", multiline: true },
+  { key: "active", label: "Published on public site", kind: "toggle" },
 ];
 const noticeFields: CmsArrayFieldDefinition[] = [
   { key: "category", label: "Category" },
@@ -196,10 +199,11 @@ export function AdminDashboard({
   initialContent: SiteContent;
   adminEmail: string;
 }) {
+  const router = useRouter();
   const [tab, setTab] = useState<Tab>("overview");
   const [draft, setDraft] = useState(JSON.stringify(initialContent, null, 2));
-  const savedDraftRef = useRef(JSON.stringify(initialContent, null, 2));
-  const hasUnsavedChanges = draft !== savedDraftRef.current;
+  const [savedDraft, setSavedDraft] = useState(JSON.stringify(initialContent, null, 2));
+  const hasUnsavedChanges = draft !== savedDraft;
   const [notice, setNotice] = useState<{
     kind: "success" | "error" | "info";
     text: string;
@@ -309,10 +313,17 @@ export function AdminDashboard({
     }
   }, []);
   useEffect(() => {
-    if (tab === "media" || tab === "reels" || tab === "content")
-      void loadMedia();
-    if (tab === "inquiries") void loadInquiries();
-    if (tab === "history") void loadHistory();
+    let active = true;
+    queueMicrotask(() => {
+      if (!active) return;
+      if (tab === "media" || tab === "reels" || tab === "content")
+        void loadMedia();
+      if (tab === "inquiries") void loadInquiries();
+      if (tab === "history") void loadHistory();
+    });
+    return () => {
+      active = false;
+    };
   }, [tab, loadMedia, loadInquiries, loadHistory]);
   useEffect(() => {
     const warnBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -452,7 +463,7 @@ export function AdminDashboard({
       if (!response.ok)
         throw new Error(result.error || "Could not save content.");
       const normalizedDraft = JSON.stringify(content, null, 2);
-      savedDraftRef.current = normalizedDraft;
+      setSavedDraft(normalizedDraft);
       setDraft(normalizedDraft);
       setNotice({
         kind: "success",
@@ -677,7 +688,7 @@ export function AdminDashboard({
     try {
       await fetch("/api/admin/logout", { method: "POST" });
     } finally {
-      window.location.assign("/admin/login");
+      router.replace("/admin/login");
     }
   }
 
@@ -1320,7 +1331,7 @@ export function AdminDashboard({
                 />
                 <CmsArrayEditor
                   title="Director, principal & leadership profiles"
-                  description="Change names, messages and portrait images, or add / remove leadership profiles."
+                  description="Complete the role, name and approved portrait, then enable Published to show a profile publicly."
                   path={["home", "leaders"]}
                   items={parsed.home.leaders}
                   fields={leaderFields}
@@ -1329,9 +1340,11 @@ export function AdminDashboard({
                     role: "School leader",
                     name: "",
                     designation: "",
+                    quote: "",
                     message: "",
                     portrait: "",
                     alt: "Portrait of school leader",
+                    active: false,
                   }}
                   media={media}
                   update={updateDraftField}
