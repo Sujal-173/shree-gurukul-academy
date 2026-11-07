@@ -64,6 +64,9 @@ Open `/admin/login` to sign in. There is no public signup or password-reset rout
 | `GOOGLE_SHEET_ID` | ID of the Google spreadsheet that receives enquiries |
 | `GOOGLE_CONTACT_SHEET_TAB` | Contact-enquiry worksheet tab; defaults to `Contact Enquiries` |
 | `GOOGLE_ADMISSION_SHEET_TAB` | Admission-enquiry worksheet tab; defaults to `Admission Enquiries` |
+| `UPSTASH_REDIS_REST_URL` | Server-only HTTPS REST endpoint for shared production rate limiting |
+| `UPSTASH_REDIS_REST_TOKEN` | Server-only Upstash standard read/write REST token; never expose publicly |
+| `UPSTASH_REDIS_REQUIRED` | Set to `true` for Preview/staging; production always requires Redis automatically |
 
 ### Live Google Sheets enquiry sync
 
@@ -100,7 +103,7 @@ The admin dashboard includes Overview, a page-by-page editor index, the advanced
 - **Page-by-page editors:** `/admin/pages` lists individual editors for Home, About, Academics, Admissions, Facilities, School Life, Gallery, Vision & Values, Notices, Calendar, Contact, Disclosure, Privacy Policy, and Site Settings. Each route has page-specific fields and repeatable section controls. Edits remain a draft until **Save changes** is selected. Saves are scoped to the current page or settings group so unrelated page edits are preserved. The **Advanced full-site editor** remains available for technical administrators who need to work with full-content JSON and backups.
 - **Media Library:** Uploads raster images to Cloudinary (JPG/JPEG, PNG, WebP or AVIF up to 8 MB), stores metadata in MongoDB, and displays secure image URLs for copying into the content JSON. A media item can only be deleted from Cloudinary after the CMS confirms that its URL/public ID is not referenced by current saved content or one of the retained content-history revisions. Uploading does not silently overwrite site content; review the URL placement and save content explicitly.
 - **Reel Covers:** Create and download a 1080×1920 PNG cover. Default backgrounds use bundled local artwork. Cross-origin uploaded backgrounds require Cloudinary to permit canvas export; a CORS restriction is surfaced rather than silently creating a broken file.
-- **Enquiries:** Public contact/admission forms validate on both client and server, pass a honeypot field, apply per-process rate limiting, store records in MongoDB and optionally notify the inbox via Resend. Administrators can change enquiry status.
+- **Enquiries:** Public contact/admission forms validate on both client and server, pass a honeypot field, use shared Upstash Redis rate limits in production (process-local fallback only in development), store records in MongoDB and optionally notify the inbox via Resend. Administrators can change enquiry status.
 
 ## Media note
 
@@ -112,11 +115,15 @@ The bundled school images are generated illustrative visuals, not photographs of
 2. Create MongoDB Atlas credentials with a least-privilege database user and restrict network access. Keep backups and test recovery.
 3. Configure Cloudinary upload settings, file-size/format policies and account access. Review uploaded image permissions and retention.
 4. Set a random `AUTH_SECRET`, `ADMIN_EMAIL`, and bcrypt `ADMIN_PASSWORD_HASH`. Do not use public signup. Enable HTTPS, secure production cookies and rotate credentials if compromised.
-5. Put rate limits at the CDN/edge or a shared store in front of the app. The included API rate limiter is in-process and resets on restart; it is not a substitute for distributed rate limiting for a multi-instance deployment.
+5. Configure Upstash Redis for shared rate limiting before production. Add `UPSTASH_REDIS_REST_URL` and the standard read/write `UPSTASH_REDIS_REST_TOKEN` to server-side hosting secrets. Production automatically fails closed when Redis is missing or unavailable; set `UPSTASH_REDIS_REQUIRED=true` in Preview/staging too. Follow [docs/REDIS-SETUP.md](./docs/REDIS-SETUP.md), then run `npm run check:redis` locally. The process-local fallback is for development only and is not a distributed production security boundary.
 6. Add a verified Resend sender if email notification is required. Test both the database record and the mail delivery independently.
 7. Replace illustrative images and confirm every school fact, staff profile, class, fee, date, facility and disclosure with the school. The current build deliberately makes no CBSE/board/recognition claim.
 8. Run `npm run typecheck`, `npm run lint`, `npm test`, and `npm run build` in a network-enabled environment. Fix all errors, test mobile, keyboard navigation, form workflows, CMS save/load, media upload, logout, authorization, and deploy previews before release.
 9. Review the starter privacy notice with the school and legal adviser against actual collection, retention, access and email-provider practices.
+
+## Shared Redis rate limiting
+
+The application uses the Upstash Redis REST API from server-side `fetch`; no Redis client package or TCP connection is needed. The rate-limit counter is atomic (Lua `INCR` + expiry), shared across server instances, and the key material is hashed before it is stored. Production fails closed if Redis credentials are missing or a Redis request fails. Configure it using [docs/REDIS-SETUP.md](./docs/REDIS-SETUP.md).
 
 ## Security notes
 

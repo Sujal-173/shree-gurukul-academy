@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminToken, sessionAgeSeconds, verifyCredentials, isAdminAuthConfigured, ADMIN_COOKIE } from "@/lib/auth";
-import { clientIp, isSameOrigin, jsonError, rateLimit } from "@/lib/security";
+import { clientIp, isSameOrigin, jsonError, rateLimit, readTextBodyLimited } from "@/lib/security";
 import { loginSchema } from "@/lib/validators";
 
 export const runtime = "nodejs";
@@ -9,9 +9,13 @@ export const dynamic = "force-dynamic";
 export async function POST(request: NextRequest) {
   if (!isSameOrigin(request)) return jsonError("Invalid request origin.", 403);
   if (Number(request.headers.get("content-length") || 0) > 12_000) return jsonError("Request body is too large.", 413);
-  if (!rateLimit(`admin-login:${clientIp(request)}`, 8, 15 * 60 * 1000)) return jsonError("Too many login attempts. Try again in 15 minutes.", 429);
+  if (!(await rateLimit(`admin-login:${clientIp(request)}`, 8, 15 * 60 * 1000))) return jsonError("Too many login attempts. Try again in 15 minutes.", 429);
   let input: unknown;
-  try { input = await request.json(); } catch { return jsonError("Invalid request body.", 400); }
+  try {
+    const bodyText = await readTextBodyLimited(request, 12_000);
+    if (bodyText === null) return jsonError("Request body is too large.", 413);
+    input = JSON.parse(bodyText);
+  } catch { return jsonError("Invalid request body.", 400); }
   const parsed = loginSchema.safeParse(input);
   if (!parsed.success) return jsonError("Enter a valid email and password.", 400);
   if (!isAdminAuthConfigured()) {

@@ -3,7 +3,7 @@ import { ObjectId } from "mongodb";
 import { v2 as cloudinary } from "cloudinary";
 import { isAdminRequest } from "@/lib/auth";
 import { getDb } from "@/lib/db";
-import { clientIp, isSameOrigin, jsonError, rateLimit } from "@/lib/security";
+import { clientIp, isSameOrigin, jsonError, rateLimit, readTextBodyLimited } from "@/lib/security";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export async function GET(request: NextRequest) {
@@ -28,9 +28,13 @@ function containsReference(value: unknown, url: string, publicId: string): boole
 export async function DELETE(request: NextRequest) {
   if (!(await isAdminRequest(request))) return jsonError("Authentication required.", 401);
   if (!isSameOrigin(request)) return jsonError("Invalid request origin.", 403);
-  if (!rateLimit(`admin-media-delete:${clientIp(request)}`, 20, 60 * 60 * 1000)) return jsonError("Too many media deletion requests. Try again later.", 429);
+  if (!(await rateLimit(`admin-media-delete:${clientIp(request)}`, 20, 60 * 60 * 1000))) return jsonError("Too many media deletion requests. Try again later.", 429);
   let body: unknown;
-  try { body = await request.json(); } catch { return jsonError("Invalid request body.", 400); }
+  try {
+    const bodyText = await readTextBodyLimited(request, 8_000);
+    if (bodyText === null) return jsonError("Request body is too large.", 413);
+    body = JSON.parse(bodyText);
+  } catch { return jsonError("Invalid request body.", 400); }
   const id = body && typeof body === "object" ? (body as { id?: unknown }).id : undefined;
   if (typeof id !== "string" || !ObjectId.isValid(id)) return jsonError("Invalid media identifier.", 400);
   const { CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET } = process.env;

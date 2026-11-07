@@ -1,7 +1,8 @@
 # Deployment checklist
 
 ## Before deploy
-- Use the exact supported Node.js 22 range declared in `package.json` (currently `>=22.23.4 <23`) and install from `package-lock.json` with `npm ci`.
+- Use the exact supported Node.js 22 range declared in `package.json` (currently `>=22.23.4 <23`) and install from `package-lock.json` with `npm ci`. The Next.js framework and matching ESLint config are pinned to 16.4.5 to include the 3 November 2026 security release.
+- Before production, run `npm install --package-lock-only --ignore-scripts` on an internet-connected machine to regenerate registry integrity hashes for the upgraded Next.js 16.4.5 packages, then commit the refreshed lockfile and validate with `npm ci`. The audit environment could not reach the npm registry, so those new SRI hashes could not be fetched here.
 - Configure all required variables from `.env.example` in your hosting provider secret manager.
 - Set `NEXT_PUBLIC_SITE_URL` to the production HTTPS origin.
 - Create the admin password hash with `npm run hash-password -- "a-unique-password-longer-than-12-chars"`; store only the hash in `ADMIN_PASSWORD_HASH`.
@@ -25,7 +26,8 @@
 ## Operational security
 - Enable HTTPS; only production cookies are marked Secure.
 - Keep MongoDB and Cloudinary secrets server-only.
-- Use an upstream distributed rate limiter and monitoring for multi-instance deployments.
+- Configure `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` for shared rate limiting across serverless or multi-instance deployments. Without these variables, the application falls back to a process-local limiter suitable only for local/single-instance resilience, not as a distributed security boundary.
+- Configure the hosting proxy to sanitize/overwrite forwarded client-IP headers. The application uses those headers only as a rate-limit key, never for authorization.
 - Review CSP against any future integrations before enabling them.
 - Configure platform log retention, backups and incident-response contacts.
 
@@ -33,7 +35,7 @@
 
 Each changed CMS save stores the previous content snapshot in `siteContentVersions`. The admin history interface exposes only the 25 most recent snapshots; reviewing a snapshot loads it into an unsaved draft, so rollback always requires explicit review and a normal save. Configure MongoDB backups as a separate operational recovery measure; CMS history is not a replacement for database backups.
 
-Image upload endpoints require an authenticated admin session and same-origin POST request, enforce a file-size and MIME allowlist, and validate file signatures before Cloudinary upload. Keep Cloudinary secrets server-only. The built-in rate limiter uses process memory; for horizontally scaled production deployments, add a shared rate limiter at the platform/edge layer and ensure the reverse proxy sanitizes forwarded client-IP headers.
+Image upload endpoints require an authenticated admin session and same-origin POST request, enforce a file-size and MIME allowlist, and validate file signatures before Cloudinary upload. Keep Cloudinary secrets server-only. The rate limiter uses Upstash Redis when configured and falls back to process memory if unavailable. Treat the fallback as development/single-instance protection only; configure Upstash and alert on Redis failures for production. The request handlers also enforce streamed body-byte limits, including requests without a trustworthy Content-Length header. Ensure the reverse proxy sanitizes forwarded client-IP headers.
 
 
 ## Canonical public URL and search metadata

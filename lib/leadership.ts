@@ -22,15 +22,22 @@ export function publishCompleteLegacyLeaders(input: LeaderProfile[]): LeaderProf
 export function getPublishedLeaders(input: unknown): LeaderProfile[] {
   if (!Array.isArray(input)) return [];
 
-  return input.filter((candidate): candidate is LeaderProfile => {
-    if (!candidate || typeof candidate !== "object" || Array.isArray(candidate)) {
-      return false;
-    }
-
+  const published: LeaderProfile[] = [];
+  const seen = new Set<string>();
+  for (const candidate of input) {
+    if (!candidate || typeof candidate !== "object" || Array.isArray(candidate)) continue;
     const profile = candidate as Record<string, unknown>;
-    return profile.active === true
-      && typeof profile.role === "string" && profile.role.trim().length > 0
-      && typeof profile.name === "string" && profile.name.trim().length > 0
-      && typeof profile.portrait === "string" && profile.portrait.trim().length > 0;
-  });
+    if (profile.active !== true
+      || typeof profile.role !== "string" || !profile.role.trim()
+      || typeof profile.name !== "string" || !profile.name.trim()
+      || typeof profile.portrait !== "string" || !profile.portrait.trim()) continue;
+
+    // CMS imports and earlier manual edits can contain the same leader more than once.
+    // Keep the first complete published profile for each normalized name + official role.
+    const identity = `${profile.name.trim().toLocaleLowerCase()}|${profile.role.trim().toLocaleLowerCase()}`;
+    if (seen.has(identity)) continue;
+    seen.add(identity);
+    published.push(profile as LeaderProfile);
+  }
+  return published;
 }

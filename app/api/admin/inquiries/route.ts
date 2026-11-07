@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import { isAdminRequest } from "@/lib/auth";
 import { getDb } from "@/lib/db";
 import { appendInquiryToGoogleSheet } from "@/lib/google-sheets";
-import { isSameOrigin, jsonError } from "@/lib/security";
+import { clientIp, isSameOrigin, jsonError, readTextBodyLimited, rateLimit } from "@/lib/security";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -54,9 +54,12 @@ export async function PATCH(request: NextRequest) {
   if (!isSameOrigin(request))
     return jsonError("Invalid request origin.", 403);
 
+  if (!(await rateLimit(`admin-inquiry-update:${clientIp(request)}`, 60, 60 * 60 * 1000))) return jsonError("Too many enquiry actions. Try again later.", 429);
   let body: unknown;
   try {
-    body = await request.json();
+    const bodyText = await readTextBodyLimited(request, 8_000);
+    if (bodyText === null) return jsonError("Request body is too large.", 413);
+    body = JSON.parse(bodyText);
   } catch {
     return jsonError("Invalid request body.", 400);
   }
@@ -97,9 +100,12 @@ export async function POST(request: NextRequest) {
   if (!isSameOrigin(request))
     return jsonError("Invalid request origin.", 403);
 
+  if (!(await rateLimit(`admin-inquiry-update:${clientIp(request)}`, 60, 60 * 60 * 1000))) return jsonError("Too many enquiry actions. Try again later.", 429);
   let body: unknown;
   try {
-    body = await request.json();
+    const bodyText = await readTextBodyLimited(request, 8_000);
+    if (bodyText === null) return jsonError("Request body is too large.", 413);
+    body = JSON.parse(bodyText);
   } catch {
     return jsonError("Invalid request body.", 400);
   }

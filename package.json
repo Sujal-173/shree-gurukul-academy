@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "hash-password": "node scripts/hash-password.mjs",
+    "check:redis": "node --env-file=.env.local scripts/check-redis.mjs",
     "test": "vitest run"
   },
   "dependencies": {
@@ -19,7 +20,7 @@
     "cloudinary": "2.11.0",
     "jose": "6.2.12",
     "mongodb": "7.7.0",
-    "next": "16.4.3",
+    "next": "16.4.5",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "resend": "6.30.0",
@@ -31,10 +32,15 @@
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "eslint": "9.39.5",
-    "eslint-config-next": "16.4.3",
+    "eslint-config-next": "16.4.5",
     "postcss": "8.5.28",
     "tailwindcss": "4.3.3",
     "typescript": "6.0.3",
     "vitest": "5.0.5"
+  },
+  "overrides": {
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "^11.0.1"
+    }
   }
 }

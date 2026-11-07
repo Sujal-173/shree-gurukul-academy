@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { isAdminRequest } from "@/lib/auth";
 import { getDb } from "@/lib/db";
-import { clientIp, isSameOrigin, jsonError, rateLimit } from "@/lib/security";
+import { clientIp, isSameOrigin, jsonError, rateLimit, readTextBodyLimited } from "@/lib/security";
 import { sanitizeContent } from "@/lib/sanitize-content";
 import { contentSchema } from "@/lib/validators";
 import { allowedContentScopes, mergeScopedContent } from "@/lib/content-scope";
@@ -36,10 +36,10 @@ function validateContentBounds(value: unknown, depth = 0): string | null {
 export async function POST(request: NextRequest) {
   if (!(await isAdminRequest(request))) return jsonError("Authentication required.", 401);
   if (!isSameOrigin(request)) return jsonError("Invalid request origin.", 403);
-  if (!rateLimit(`cms-save:${clientIp(request)}`, 40, 60 * 60 * 1000)) return jsonError("Too many content saves. Try again later.", 429);
+  if (!(await rateLimit(`cms-save:${clientIp(request)}`, 40, 60 * 60 * 1000))) return jsonError("Too many content saves. Try again later.", 429);
   if (Number(request.headers.get("content-length") || 0) > 1_250_000) return jsonError("Content exceeds the 1.2 MB limit.", 413);
-  const bodyText = await request.text();
-  if (bodyText.length > 1_200_000) return jsonError("Content exceeds the 1.2 MB limit.", 413);
+  const bodyText = await readTextBodyLimited(request, 1_200_000);
+  if (bodyText === null) return jsonError("Content exceeds the 1.2 MB limit.", 413);
   let body: unknown;
   try { body = JSON.parse(bodyText); } catch { return jsonError("The content is not valid JSON.", 400); }
   if (!body || typeof body !== "object" || !("content" in body)) return jsonError("Missing content object.", 400);

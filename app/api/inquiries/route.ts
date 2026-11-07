@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { Resend } from "resend";
 import { getDb } from "@/lib/db";
 import { appendInquiryToGoogleSheet } from "@/lib/google-sheets";
-import { clientIp, isSameOrigin, jsonError, rateLimit } from "@/lib/security";
+import { clientIp, isSameOrigin, jsonError, rateLimit, readTextBodyLimited } from "@/lib/security";
 import { inquirySchema } from "@/lib/validators";
 
 export const runtime = "nodejs";
@@ -11,9 +11,13 @@ export const dynamic = "force-dynamic";
 export async function POST(request: NextRequest) {
   if (!isSameOrigin(request)) return jsonError("Invalid request origin.", 403);
   if (Number(request.headers.get("content-length") || 0) > 32_000) return jsonError("Form payload is too large.", 413);
-  if (!rateLimit(`public-inquiry:${clientIp(request)}`, 5, 10 * 60 * 1000)) return jsonError("Too many enquiries from this connection. Please try again later.", 429);
+  if (!(await rateLimit(`public-inquiry:${clientIp(request)}`, 5, 10 * 60 * 1000))) return jsonError("Too many enquiries from this connection. Please try again later.", 429);
   let body: unknown;
-  try { body = await request.json(); } catch { return jsonError("Invalid request body.", 400); }
+  try {
+    const bodyText = await readTextBodyLimited(request, 32_000);
+    if (bodyText === null) return jsonError("Form payload is too large.", 413);
+    body = JSON.parse(bodyText);
+  } catch { return jsonError("Invalid request body.", 400); }
   if (body && typeof body === "object" && "website" in body && typeof (body as { website?: unknown }).website === "string" && (body as { website: string }).website.trim()) {
     return Response.json({ ok: true, message: "Thank you. Your enquiry has been received." }, { headers: { "Cache-Control": "no-store" } });
   }

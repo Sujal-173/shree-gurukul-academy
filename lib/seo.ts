@@ -86,6 +86,6 @@ export async function pageMetadata(slug: string): Promise<Metadata> {
       card: "summary_large_image", title, description,
       ...(image ? { images: [{ url: image, alt: `${content.brand.name} website preview` }] } : {}),
     },
-    robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
+    robots: { index: slug !== "privacy", follow: true, googleBot: { index: slug !== "privacy", follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
   };
 }

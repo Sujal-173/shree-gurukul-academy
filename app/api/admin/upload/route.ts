@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { v2 as cloudinary, type UploadApiOptions, type UploadApiResponse } from "cloudinary";
 import { isAdminRequest } from "@/lib/auth";
 import { getDb } from "@/lib/db";
-import { clientIp, isSameOrigin, jsonError, rateLimit } from "@/lib/security";
+import { clientIp, isSameOrigin, jsonError, rateLimit, readBodyLimited } from "@/lib/security";
 import { isSupportedImageMime, isSupportedSchoolAttachmentMime, matchesSchoolAttachmentSignature, supportedDocumentMime } from "@/lib/upload-validation";
 
 export const runtime = "nodejs";
@@ -24,12 +24,19 @@ function safeOriginalName(value: string): string {
 export async function POST(request: NextRequest) {
   if (!(await isAdminRequest(request))) return jsonError("Authentication required.", 401);
   if (!isSameOrigin(request)) return jsonError("Invalid request origin.", 403);
-  if (!rateLimit(`admin-upload:${clientIp(request)}`, 30, 60 * 60 * 1000)) return jsonError("Upload limit reached. Try again later.", 429);
+  if (!(await rateLimit(`admin-upload:${clientIp(request)}`, 30, 60 * 60 * 1000))) return jsonError("Upload limit reached. Try again later.", 429);
   if (Number(request.headers.get("content-length") || 0) > MAX_ATTACHMENT_BYTES + 1_000_000) return jsonError("File upload exceeds the 12 MB limit.", 413);
   if (!configured()) return jsonError("File storage is not configured. Add the Cloudinary credentials to the server environment.", 503);
 
   let form: FormData;
-  try { form = await request.formData(); } catch { return jsonError("Invalid upload form.", 400); }
+  try {
+    const rawBody = await readBodyLimited(request, MAX_ATTACHMENT_BYTES + 1_000_000);
+    if (rawBody === null) return jsonError("File upload exceeds the 12 MB limit.", 413);
+    const contentType = request.headers.get("content-type");
+    if (!contentType?.toLowerCase().startsWith("multipart/form-data;")) return jsonError("Expected a multipart upload form.", 415);
+    const boundedRequest = new Request(request.url, { method: "POST", headers: { "content-type": contentType }, body: Buffer.from(rawBody) as unknown as BodyInit });
+    form = await boundedRequest.formData();
+  } catch { return jsonError("Invalid upload form.", 400); }
   const file = form.get("file");
   const purposeValue = form.get("purpose");
   if (purposeValue !== null && purposeValue !== "image" && purposeValue !== "attachment") return jsonError("Unknown upload purpose.", 400);

@@ -19,6 +19,12 @@ describe("CMS-managed leadership profiles", () => {
     expect(getPublishedLeaders(profiles)).toEqual([profiles[0]]);
   });
 
+  it("removes duplicate published profiles with the same name and role", () => {
+    const first = { role: "Managing Director", name: "Pritesh Patel", designation: "Shri Gurukul Academy", message: "Approved message", portrait: "/director.webp", alt: "Director portrait", active: true };
+    const duplicate = { ...first, message: "Duplicate CMS row", portrait: "/director-2.webp" };
+    expect(getPublishedLeaders([first, duplicate])).toEqual([first]);
+  });
+
   it("keeps complete profiles created before publication controls were added visible", () => {
     const profiles = publishCompleteLegacyLeaders([
       { role: "Director", name: "A. Person", designation: "", message: "", portrait: "/director.webp", alt: "" },
